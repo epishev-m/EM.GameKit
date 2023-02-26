@@ -1,7 +1,13 @@
 {
     "name": "EM.GameKit",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "EM.Foundation",
+        "EM.IoC",
+        "UniTask",
+        "Leopotam.EcsLite",
+        "Leopotam.EcsLite.UnityEditor.Runtime"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
