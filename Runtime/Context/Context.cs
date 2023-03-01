@@ -13,7 +13,7 @@ public abstract class Context : MonoBehaviour
 {
 	private static Context _globalContext;
 
-	private static IDiContainer _diContainer;
+	protected static IDiContainer DiContainer;
 
 	private readonly CancellationTokenSource _cts = new();
 
@@ -58,7 +58,7 @@ public abstract class Context : MonoBehaviour
 		_ecsBinder.Destroy();
 		_cts.Cancel();
 		Release();
-		_diContainer.Unbind(LifeTime.Local);
+		DiContainer.Unbind(LifeTime.Local);
 	}
 
 	#endregion
@@ -67,13 +67,22 @@ public abstract class Context : MonoBehaviour
 
 	public static bool IsExistedGlobalContext => _globalContext != null;
 
-	protected abstract void Initialize(Binder binder);
+	protected virtual void Initialize(Binder binder)
+	{
+	}
 
-	protected abstract void InitializeEcs(EcsBinder binder);
+	protected virtual void InitializeEcs(EcsBinder binder)
+	{
+	}
 
-	protected abstract void Release();
+	protected virtual void Release()
+	{
+	}
 
-	protected abstract UniTask RunAsync(CancellationToken ct);
+	protected virtual UniTask RunAsync(CancellationToken ct)
+	{
+		return UniTask.CompletedTask;
+	}
 
 	private void Binding()
 	{
@@ -102,15 +111,15 @@ public abstract class Context : MonoBehaviour
 	private static void CreateDiContainer()
 	{
 		var reflector = new Reflector();
-		_diContainer = new DiContainer(reflector);
+		DiContainer = new DiContainer(reflector);
 
-		_diContainer.Bind<IReflector>()
+		DiContainer.Bind<IReflector>()
 			.InGlobal()
 			.To(reflector);
 
-		_diContainer.Bind<IDiContainer>()
+		DiContainer.Bind<IDiContainer>()
 			.InGlobal()
-			.To(_diContainer);
+			.To(DiContainer);
 	}
 
 	#endregion
@@ -131,11 +140,11 @@ public abstract class Context : MonoBehaviour
 		public Binder Add<T>()
 			where T : class, IInstaller
 		{
-			var bindingLifeTime = _diContainer.Bind<T>();
+			var bindingLifeTime = DiContainer.Bind<T>();
 			var diBinding = _globalContext == _context ? bindingLifeTime.InGlobal() : bindingLifeTime.InLocal();
 			diBinding.To<T>().ToSingleton();
-			var installer = _diContainer.Resolve<T>();
-			installer.InstallBindings(_diContainer);
+			var installer = DiContainer.Resolve<T>();
+			installer.InstallBindings(DiContainer);
 
 			return this;
 		}
@@ -161,10 +170,10 @@ public abstract class Context : MonoBehaviour
 		public EcsBinder Add<T>()
 			where T : class, IEcsRunner
 		{
-			var bindingLifeTime = _diContainer.Bind<T>();
+			var bindingLifeTime = DiContainer.Bind<T>();
 			var diBinding = _globalContext == _context ? bindingLifeTime.InGlobal() : bindingLifeTime.InLocal();
 			diBinding.To<T>().ToSingleton();
-			var ecsRunner = _diContainer.Resolve<T>();
+			var ecsRunner = DiContainer.Resolve<T>();
 			_localEcsRunners.Add(ecsRunner);
 			EcsRunners.Add(ecsRunner);
 

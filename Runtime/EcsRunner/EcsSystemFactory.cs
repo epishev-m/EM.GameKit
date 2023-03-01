@@ -19,7 +19,7 @@ public abstract class EcsSystemFactory : IEcsSystemFactory
 
 	protected EcsSystemFactory(IDiContainer diContainer)
 	{
-		Requires.NotNull(diContainer, nameof(diContainer));
+		Requires.NotNullParam(diContainer, nameof(diContainer));
 
 		_diContainer = diContainer;
 	}

@@ -44,7 +44,7 @@ public abstract class EcsRunner : IEcsRunner
 
 	protected void AddEcsSystems(IEcsSystem ecsSystem)
 	{
-		Requires.NotNull(ecsSystem, nameof(ecsSystem));
+		Requires.NotNullParam(ecsSystem, nameof(ecsSystem));
 
 		_ecsSystems.Add(ecsSystem);
 	}
