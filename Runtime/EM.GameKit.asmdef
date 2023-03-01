@@ -5,8 +5,12 @@
         "EM.Foundation",
         "EM.IoC",
         "UniTask",
+        "UniTask.DOTween",
         "Leopotam.EcsLite",
-        "Leopotam.EcsLite.UnityEditor.Runtime"
+        "Leopotam.EcsLite.UnityEditor.Runtime",
+        "EM.UI",
+        "MessagePack.Annotations",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
