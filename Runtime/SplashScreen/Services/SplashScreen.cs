@@ -27,7 +27,6 @@ public sealed class SplashScreen
 		}
 
 		await _router.OpenAsync(ct);
-		_model.Start();
 		await UniTask.WaitUntil(() => _model.IsFinished, cancellationToken: ct);
 		await _router.CloseAsync(ct);
 	}

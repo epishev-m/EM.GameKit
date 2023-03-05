@@ -10,7 +10,8 @@
         "Leopotam.EcsLite.UnityEditor.Runtime",
         "EM.UI",
         "MessagePack.Annotations",
-        "DOTween.Modules"
+        "DOTween.Modules",
+        "EM.ProfileSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

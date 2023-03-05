@@ -1,29 +1,16 @@
 namespace EM.GameKit
 {
 
-using System;
 using System.Collections.Generic;
 using Foundation;
-using UnityEngine;
 
-public class SplashScreenViewModel : ISplashScreenViewModel,
-	IDisposable
+public class SplashScreenViewModel : ISplashScreenViewModel
 {
 	private readonly SplashScreenModel _model;
 
 	private readonly RxProperty<ISplashConfig> _currentSplash = new();
 
 	private readonly Queue<ISplashConfig> _splashQueue = new();
-
-	#region IDisposable
-
-	public void Dispose()
-	{
-		_model.OnStarted -= Next;
-		_splashQueue.Clear();
-	}
-
-	#endregion
 
 	#region ISplashScreenUiViewModel
 
@@ -57,7 +44,6 @@ public class SplashScreenViewModel : ISplashScreenViewModel,
 		SplashScreenConfig config)
 	{
 		_model = model;
-		_model.OnStarted += Next;
 
 		if (config.Splashes == null)
 		{

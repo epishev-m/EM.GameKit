@@ -37,6 +37,7 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>,
 	{
 		_skipButton.onClick.AddListener(ViewModel.Skip);
 		Subscribe(ViewModel.CurrentSplash, ChangeSplash);
+		ViewModel.Next();
 	}
 
 	#endregion
