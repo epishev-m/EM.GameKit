@@ -1,15 +1,13 @@
 namespace EM.GameKit
 {
 
-using System;
 using Foundation;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 [Asset(nameof(GdpRegulationView), LifeTime.Local)]
-public sealed class GdpRegulationView : View<IGdpRegulationViewModel>,
-	IDisposable
+public sealed class GdpRegulationView : View<IGdpRegulationViewModel>
 {
 	[Header(nameof(GdpRegulationView))]
 	[SerializeField]
@@ -21,24 +19,15 @@ public sealed class GdpRegulationView : View<IGdpRegulationViewModel>,
 	[SerializeField]
 	private Button _acceptButton;
 
-	#region IDisposable
-
-	public void Dispose()
-	{
-		_licenseButton.onClick.RemoveAllListeners();
-		_privacyButton.onClick.RemoveAllListeners();
-		_acceptButton.onClick.RemoveAllListeners();
-	}
-
-	#endregion
-
 	#region View
 
 	protected override void OnInitialize()
 	{
-		_licenseButton.onClick.AddListener(ViewModel.OpenLicence);
-		_privacyButton.onClick.AddListener(ViewModel.OpenPrivacy);
-		_acceptButton.onClick.AddListener(ViewModel.Accept);
+		base.OnInitialize();
+
+		Subscribe(_licenseButton.onClick, ViewModel.OpenLicence);
+		Subscribe(_privacyButton.onClick, ViewModel.OpenPrivacy);
+		Subscribe(_acceptButton.onClick, ViewModel.Accept);
 	}
 
 	#endregion

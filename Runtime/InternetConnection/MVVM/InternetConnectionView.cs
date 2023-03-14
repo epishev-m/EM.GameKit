@@ -1,35 +1,26 @@
 ﻿namespace EM.GameKit
 {
 
-using System;
 using Foundation;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 [Asset(nameof(InternetConnectionView), LifeTime.Local)]
-public sealed class InternetConnectionView : View<IInternetConnectionViewModel>,
-	IDisposable
+public sealed class InternetConnectionView : View<IInternetConnectionViewModel>
 {
 	[Header(nameof(InternetConnectionView))]
 
 	[SerializeField]
 	private Button _restartButton;
 
-	#region IDisposable
-
-	public void Dispose()
-	{
-		_restartButton.onClick.RemoveAllListeners();
-	}
-
-	#endregion
-
 	#region PanelView
 
 	protected override void OnInitialize()
 	{
-		_restartButton.onClick.AddListener(ViewModel.Restart);
+		base.OnInitialize();
+
+		Subscribe(_restartButton.onClick, ViewModel.Restart);
 	}
 
 	#endregion

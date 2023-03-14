@@ -1,7 +1,6 @@
 namespace EM.GameKit
 {
 
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -11,8 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Asset(nameof(SplashScreenView), LifeTime.Local)]
-public sealed class SplashScreenView : View<ISplashScreenViewModel>,
-	IDisposable
+public sealed class SplashScreenView : View<ISplashScreenViewModel>
 {
 	[SerializeField] private Button _skipButton;
 
@@ -22,21 +20,14 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>,
 
 	private CancellationTokenSource _cts;
 
-	#region IDisposable
-
-	public void Dispose()
-	{
-		_skipButton.onClick.RemoveAllListeners();
-	}
-
-	#endregion
-
 	#region View
 
 	protected override void OnInitialize()
 	{
-		_skipButton.onClick.AddListener(ViewModel.Skip);
+		base.OnInitialize();
+
 		Subscribe(ViewModel.CurrentSplash, ChangeSplash);
+		Subscribe(_skipButton.onClick, ViewModel.Skip);
 		ViewModel.Next();
 	}
 
@@ -68,7 +59,7 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>,
 		{
 			return;
 		}
-		
+
 		if (TryGetView(splash.Name, out var splashView))
 		{
 			_currentSplashView = splashView;
