@@ -7,7 +7,7 @@ public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
 {
 	private readonly GdpRegulationModel _gdpRegulationModel;
 
-	private readonly IGdpRegulationConfig _configs;
+	private readonly GdpRegulationConfig _configs;
 
 	#region IGdpRegulationViewModel
 
@@ -31,7 +31,7 @@ public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
 	#region GdpRegulationViewModel
 
 	public GdpRegulationViewModel(GdpRegulationModel gdpRegulationModel,
-		IGdpRegulationConfig configs)
+		GdpRegulationConfig configs)
 	{
 		_gdpRegulationModel = gdpRegulationModel;
 		_configs = configs;

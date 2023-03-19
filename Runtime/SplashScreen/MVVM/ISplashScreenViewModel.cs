@@ -5,7 +5,7 @@ using Foundation;
 
 public interface ISplashScreenViewModel
 {
-	IRxProperty<ISplashConfig> CurrentSplash
+	IRxProperty<SplashConfig> CurrentSplash
 	{
 		get;
 	}

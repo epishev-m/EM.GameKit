@@ -8,13 +8,13 @@ public class SplashScreenViewModel : ISplashScreenViewModel
 {
 	private readonly SplashScreenModel _model;
 
-	private readonly RxProperty<ISplashConfig> _currentSplash = new();
+	private readonly RxProperty<SplashConfig> _currentSplash = new();
 
-	private readonly Queue<ISplashConfig> _splashQueue = new();
+	private readonly Queue<SplashConfig> _splashQueue = new();
 
 	#region ISplashScreenUiViewModel
 
-	public IRxProperty<ISplashConfig> CurrentSplash => _currentSplash;
+	public IRxProperty<SplashConfig> CurrentSplash => _currentSplash;
 
 	public void Next()
 	{

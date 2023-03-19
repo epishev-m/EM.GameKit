@@ -35,7 +35,7 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 
 	#region SplashScreenView
 
-	private void ChangeSplash(ISplashConfig splash)
+	private void ChangeSplash(SplashConfig splash)
 	{
 		HideCurrent();
 		ShowAsync(splash).Forget();
@@ -53,7 +53,7 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 		_currentSplashView = null;
 	}
 
-	private async UniTask ShowAsync(ISplashConfig splash)
+	private async UniTask ShowAsync(SplashConfig splash)
 	{
 		if (splash == null)
 		{

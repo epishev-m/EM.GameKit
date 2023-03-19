@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 public sealed class SplashScreenConfig
 {
-	public readonly IEnumerable<ISplashConfig> Splashes;
+	public readonly IEnumerable<SplashConfig> Splashes;
 
 	#region SplashScreenConfig
 
-	public SplashScreenConfig(IEnumerable<ISplashConfig> splashes)
+	public SplashScreenConfig(IEnumerable<SplashConfig> splashes)
 	{
 		Splashes = splashes;
 	}
