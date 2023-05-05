@@ -1,0 +1,20 @@
+{
+    "name": "EM.GameKit.Editor",
+    "rootNamespace": "",
+    "references": [
+        "EM.Foundation.Editor",
+        "EM.GameKit",
+        "EM.Assistant.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
