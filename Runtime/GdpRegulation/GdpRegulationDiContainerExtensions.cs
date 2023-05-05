@@ -1,40 +1,40 @@
 namespace EM.GameKit
 {
 
+using Foundation;
 using IoC;
 
-public sealed class GdpRegulationInstaller : IInstaller
+public static class GdpRegulationDiContainerExtensions
 {
-	#region IInstaller
-
-	public void InstallBindings(IDiContainer diContainer)
+	public static IDiContainer BindSystemGdpRegulation(this IDiContainer diContainer,
+		LifeTime lifeTime)
 	{
 		diContainer.Bind<GdpRegulationModel>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<GdpRegulationModel>()
 			.ToSingleton();
 
 		diContainer.Bind<GdpRegulationSaver>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<GdpRegulationSaver>()
 			.ToSingleton();
 
 		diContainer.Bind<GdpRegulationRouter>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<GdpRegulationRouter>()
 			.ToSingleton();
 
 		diContainer.Bind<GdpRegulationViewModel>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<GdpRegulationViewModel>();
 
 		diContainer.Bind<GdpRegulation>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<GdpRegulation>()
 			.ToSingleton();
-	}
 
-	#endregion
+		return diContainer;
+	}
 }
 
 }

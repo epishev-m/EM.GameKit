@@ -1,7 +1,6 @@
 namespace EM.GameKit
 {
 
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Foundation;
@@ -13,11 +12,11 @@ public abstract class Context : MonoBehaviour
 {
 	private static Context _globalContext;
 
-	protected static IDiContainer DiContainer;
+	private static IDiContainer _diContainer;
 
 	private readonly CancellationTokenSource _cts = new();
 
-	private EcsBinder _ecsBinder;
+	protected EcsContainer EcsContainer;
 
 	#region MonoBehaviour
 
@@ -28,13 +27,13 @@ public abstract class Context : MonoBehaviour
 			CreateDiContainer();
 		}
 
-		Binding();
-		EcsBinding();
+		CreateEcsContainer();
+		Initialize();
 	}
 
 	private void Start()
 	{
-		_ecsBinder.Run();
+		EcsContainer.Run();
 		RunAsync(_cts.Token).Forget();
 	}
 
@@ -45,7 +44,7 @@ public abstract class Context : MonoBehaviour
 			return;
 		}
 
-		EcsBinder.Update();
+		EcsContainer.Update();
 	}
 
 	private void OnDestroy()
@@ -55,10 +54,10 @@ public abstract class Context : MonoBehaviour
 			return;
 		}
 
-		_ecsBinder.Destroy();
+		EcsContainer.Destroy();
 		_cts.Cancel();
 		Release();
-		DiContainer.Unbind(LifeTime.Local);
+		_diContainer.Unbind(LifeTime.Local);
 	}
 
 	#endregion
@@ -67,34 +66,15 @@ public abstract class Context : MonoBehaviour
 
 	public static bool IsExistedGlobalContext => _globalContext != null;
 
-	protected virtual void Initialize(Binder binder)
-	{
-	}
+	public bool IsGlobalContext => _globalContext == this;
 
-	protected virtual void InitializeEcs(EcsBinder binder)
-	{
-	}
+	public IDiContainer DiContainer => _diContainer;
 
-	protected virtual void Release()
-	{
-	}
+	protected abstract void Initialize();
 
-	protected virtual UniTask RunAsync(CancellationToken ct)
-	{
-		return UniTask.CompletedTask;
-	}
+	protected abstract void Release();
 
-	private void Binding()
-	{
-		var binder = new Binder(this);
-		Initialize(binder);
-	}
-
-	private void EcsBinding()
-	{
-		_ecsBinder = new EcsBinder(this);
-		InitializeEcs(_ecsBinder);
-	}
+	protected abstract UniTask RunAsync(CancellationToken ct);
 
 	private bool SetGlobalContext()
 	{
@@ -111,103 +91,20 @@ public abstract class Context : MonoBehaviour
 	private static void CreateDiContainer()
 	{
 		var reflector = new Reflector();
-		DiContainer = new DiContainer(reflector);
+		_diContainer = new DiContainer(reflector);
 
-		DiContainer.Bind<IReflector>()
+		_diContainer.Bind<IReflector>()
 			.InGlobal()
 			.To(reflector);
 
-		DiContainer.Bind<IDiContainer>()
+		_diContainer.Bind<IDiContainer>()
 			.InGlobal()
-			.To(DiContainer);
+			.To(_diContainer);
 	}
 
-	#endregion
-
-	#region Nested
-
-	protected sealed class Binder
+	private void CreateEcsContainer()
 	{
-		private readonly Context _context;
-
-		#region Binder
-
-		public Binder(Context context)
-		{
-			_context = context;
-		}
-
-		public Binder Add<T>()
-			where T : class, IInstaller
-		{
-			var bindingLifeTime = DiContainer.Bind<T>();
-			var diBinding = _globalContext == _context ? bindingLifeTime.InGlobal() : bindingLifeTime.InLocal();
-			diBinding.To<T>().ToSingleton();
-			var installer = DiContainer.Resolve<T>();
-			installer.InstallBindings(DiContainer);
-
-			return this;
-		}
-
-		#endregion
-	}
-
-	protected sealed class EcsBinder
-	{
-		private static readonly List<IEcsRunner> EcsRunners = new();
-
-		private readonly List<IEcsRunner> _localEcsRunners = new();
-
-		private readonly Context _context;
-
-		#region EcsController
-
-		public EcsBinder(Context context)
-		{
-			_context = context;
-		}
-
-		public EcsBinder Add<T>()
-			where T : class, IEcsRunner
-		{
-			var bindingLifeTime = DiContainer.Bind<T>();
-			var diBinding = _globalContext == _context ? bindingLifeTime.InGlobal() : bindingLifeTime.InLocal();
-			diBinding.To<T>().ToSingleton();
-			var ecsRunner = DiContainer.Resolve<T>();
-			_localEcsRunners.Add(ecsRunner);
-			EcsRunners.Add(ecsRunner);
-
-			return this;
-		}
-
-		internal void Run()
-		{
-			foreach (var ecsRunner in _localEcsRunners)
-			{
-				ecsRunner.Initialize();
-			}
-		}
-
-		internal static void Update()
-		{
-			foreach (var ecsRunner in EcsRunners)
-			{
-				ecsRunner.Update();
-			}
-		}
-
-		internal void Destroy()
-		{
-			foreach (var ecsRunner in _localEcsRunners)
-			{
-				EcsRunners.Remove(ecsRunner);
-				ecsRunner.Release();
-			}
-
-			_localEcsRunners.Clear();
-		}
-
-		#endregion
+		EcsContainer = new EcsContainer(_diContainer);
 	}
 
 	#endregion

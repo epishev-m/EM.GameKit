@@ -1,30 +1,34 @@
 namespace EM.GameKit
 {
 
+using Foundation;
 using IoC;
 
-public sealed class SplashScreenInstaller : IInstaller
+public static class SplashScreenDiContainerExtensions
 {
-	public void InstallBindings(IDiContainer diContainer)
+	public static IDiContainer BindSystemSplashScreen(this IDiContainer diContainer,
+		LifeTime lifeTime)
 	{
 		diContainer.Bind<SplashScreenModel>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<SplashScreenModel>()
 			.ToSingleton();
 
 		diContainer.Bind<SplashScreenRouter>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<SplashScreenRouter>()
 			.ToSingleton();
 
 		diContainer.Bind<SplashScreenViewModel>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<SplashScreenViewModel>();
 
 		diContainer.Bind<SplashScreen>()
-			.InLocal()
+			.SetLifeTime(lifeTime)
 			.To<SplashScreen>()
 			.ToSingleton();
+
+		return diContainer;
 	}
 }
 
