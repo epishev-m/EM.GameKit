@@ -6,7 +6,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Asset(nameof(CheatsView), LifeTime.Local)]
+[ViewAsset(nameof(CheatsView), LifeTime.Local)]
 public sealed class CheatsView : View<ICheatsViewModel>
 {
 	[Header(nameof(CheatsView))]

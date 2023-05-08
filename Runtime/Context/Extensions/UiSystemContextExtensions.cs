@@ -11,7 +11,13 @@ public static class UiSystemContextExtensions
 		var lifeTime = context.IsGlobalContext
 			? LifeTime.Global
 			: LifeTime.Local;
-		
+
+		context.DiContainer
+			.Bind<IViewModelFactory>()
+			.SetLifeTime(lifeTime)
+			.To<ViewModelFactory>()
+			.ToSingleton();
+
 		context.DiContainer
 			.Bind<IUiSystem>()
 			.SetLifeTime(lifeTime)

@@ -6,7 +6,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Asset(nameof(GdpRegulationView), LifeTime.Local)]
+[ViewAsset(nameof(GdpRegulationView), LifeTime.Local)]
 public sealed class GdpRegulationView : View<IGdpRegulationViewModel>
 {
 	[Header(nameof(GdpRegulationView))]

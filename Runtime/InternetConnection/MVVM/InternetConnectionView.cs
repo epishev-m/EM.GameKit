@@ -6,7 +6,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Asset(nameof(InternetConnectionView), LifeTime.Local)]
+[ViewAsset(nameof(InternetConnectionView), LifeTime.Local)]
 public sealed class InternetConnectionView : View<IInternetConnectionViewModel>
 {
 	[Header(nameof(InternetConnectionView))]

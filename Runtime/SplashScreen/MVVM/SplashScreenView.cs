@@ -9,7 +9,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Asset(nameof(SplashScreenView), LifeTime.Local)]
+[ViewAsset(nameof(SplashScreenView), LifeTime.Local)]
 public sealed class SplashScreenView : View<ISplashScreenViewModel>
 {
 	[SerializeField]
