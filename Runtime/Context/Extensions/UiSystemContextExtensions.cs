@@ -1,6 +1,8 @@
 namespace EM.GameKit
 {
 
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Foundation;
 using UI;
 
@@ -23,6 +25,16 @@ public static class UiSystemContextExtensions
 			.SetLifeTime(lifeTime)
 			.To<UiSystem>()
 			.ToSingleton();
+
+		return context;
+	}
+
+	public static Context UseUiSystem(this Context context,
+		string id)
+	{
+		context.DiContainer
+			.Resolve<IUiSystem>()
+			.CreateUiRootAsync(id);
 
 		return context;
 	}

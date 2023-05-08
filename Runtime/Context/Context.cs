@@ -10,6 +10,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public abstract class Context : MonoBehaviour
 {
+	private static readonly CancellationTokenSource GlobalContextCts = new();
+
 	private static Context _globalContext;
 
 	private static IDiContainer _diContainer;
@@ -30,7 +32,14 @@ public abstract class Context : MonoBehaviour
 
 	private void Start()
 	{
-		RunAsync(_cts.Token).Forget();
+		if (IsGlobalContext)
+		{
+			RunGlobalContextAsync().Forget();
+		}
+		else
+		{
+			RunLocalContextAsync().Forget();
+		}
 	}
 
 	private void OnDestroy()
@@ -60,6 +69,18 @@ public abstract class Context : MonoBehaviour
 	protected abstract void Release();
 
 	protected abstract UniTask RunAsync(CancellationToken ct);
+
+	private async UniTask RunGlobalContextAsync()
+	{
+		await RunAsync(_cts.Token);
+		GlobalContextCts.Cancel();
+	}
+
+	private async UniTask RunLocalContextAsync()
+	{
+		await GlobalContextCts.Token.WaitUntilCanceled();
+		await RunAsync(_cts.Token);
+	}
 
 	private bool SetGlobalContext()
 	{
