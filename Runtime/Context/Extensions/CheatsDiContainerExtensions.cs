@@ -5,9 +5,11 @@ using Foundation;
 
 public static class CheatsDiContainerExtensions
 {
-	public static Context BindCheats(this Context context)
+	public static Context AddCheats(this Context context)
 	{
-		var lifeTime = context.IsGlobalContext ? LifeTime.Global : LifeTime.Local;
+		var lifeTime = context.IsGlobalContext
+			? LifeTime.Global
+			: LifeTime.Local;
 
 		context.DiContainer
 			.Bind<ICheatBinder>()

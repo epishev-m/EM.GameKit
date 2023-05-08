@@ -7,9 +7,11 @@ using Profile;
 
 public static class ProfileContextExtensions
 {
-	public static Context BindProfile(this Context context)
+	public static Context AddProfile(this Context context)
 	{
-		var lifeTime = context.IsGlobalContext ? LifeTime.Global : LifeTime.Local;
+		var lifeTime = context.IsGlobalContext
+			? LifeTime.Global
+			: LifeTime.Local;
 
 		context.DiContainer
 			.Bind<IStorageSegmentReceiverFactory>()
@@ -52,6 +54,19 @@ public static class ProfileContextExtensions
 			.SetLifeTime(lifeTime)
 			.To<Profile>()
 			.ToSingleton();
+
+		return context;
+	}
+
+	public static Context ReleaseProfile(this Context context)
+	{
+		var lifeTime = context.IsGlobalContext
+			? LifeTime.Global
+			: LifeTime.Local;
+
+		context.DiContainer
+			.Resolve<IProfile>()
+			.Unbind(lifeTime);
 
 		return context;
 	}

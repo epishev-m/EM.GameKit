@@ -12,9 +12,11 @@ using UnityEngine.UI;
 [Asset(nameof(SplashScreenView), LifeTime.Local)]
 public sealed class SplashScreenView : View<ISplashScreenViewModel>
 {
-	[SerializeField] private Button _skipButton;
+	[SerializeField]
+	private Button _skipButton;
 
-	[SerializeField] private List<SplashView> _splashes;
+	[SerializeField]
+	private List<SplashView> _splashes;
 
 	private SplashView _currentSplashView;
 
@@ -26,8 +28,9 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 	{
 		base.OnInitialize();
 
-		Subscribe(ViewModel.CurrentSplash, ChangeSplash);
+		Subscribe(ViewModel.CurrentSplashName, ChangeSplash);
 		Subscribe(_skipButton.onClick, ViewModel.Skip);
+
 		ViewModel.Next();
 	}
 
@@ -35,7 +38,7 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 
 	#region SplashScreenView
 
-	private void ChangeSplash(SplashConfig splash)
+	private void ChangeSplash(string splash)
 	{
 		HideCurrent();
 		ShowAsync(splash).Forget();
@@ -53,14 +56,14 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 		_currentSplashView = null;
 	}
 
-	private async UniTask ShowAsync(SplashConfig splash)
+	private async UniTask ShowAsync(string splash)
 	{
 		if (splash == null)
 		{
 			return;
 		}
 
-		if (TryGetView(splash.Name, out var splashView))
+		if (TryGetView(splash, out var splashView))
 		{
 			_currentSplashView = splashView;
 

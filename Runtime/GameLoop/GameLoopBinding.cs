@@ -14,7 +14,7 @@ public sealed class GameLoopBinding : Binding,
 		get;
 		private set;
 	} = LifeTime.External;
-	
+
 	public IGameLoopBinding InGlobal()
 	{
 		Requires.ValidOperation(LifeTime == LifeTime.External, this);
@@ -58,7 +58,7 @@ public sealed class GameLoopBinding : Binding,
 	#endregion
 
 	#region GameLoopBinding
-	
+
 	public GameLoopBinding(object key,
 		object name,
 		Resolver resolver) : base(key, name, resolver)

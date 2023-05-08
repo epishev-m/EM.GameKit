@@ -16,8 +16,6 @@ public abstract class Context : MonoBehaviour
 
 	private readonly CancellationTokenSource _cts = new();
 
-	protected EcsContainer EcsContainer;
-
 	#region MonoBehaviour
 
 	private void Awake()
@@ -27,24 +25,12 @@ public abstract class Context : MonoBehaviour
 			CreateDiContainer();
 		}
 
-		CreateEcsContainer();
 		Initialize();
 	}
 
 	private void Start()
 	{
-		EcsContainer.Run();
 		RunAsync(_cts.Token).Forget();
-	}
-
-	private void Update()
-	{
-		if (this != _globalContext)
-		{
-			return;
-		}
-
-		EcsContainer.Update();
 	}
 
 	private void OnDestroy()
@@ -54,7 +40,6 @@ public abstract class Context : MonoBehaviour
 			return;
 		}
 
-		EcsContainer.Destroy();
 		_cts.Cancel();
 		Release();
 		_diContainer.Unbind(LifeTime.Local);
@@ -100,11 +85,6 @@ public abstract class Context : MonoBehaviour
 		_diContainer.Bind<IDiContainer>()
 			.InGlobal()
 			.To(_diContainer);
-	}
-
-	private void CreateEcsContainer()
-	{
-		EcsContainer = new EcsContainer(_diContainer);
 	}
 
 	#endregion

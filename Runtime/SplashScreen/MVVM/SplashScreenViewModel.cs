@@ -2,33 +2,38 @@ namespace EM.GameKit
 {
 
 using System.Collections.Generic;
+using System.Linq;
 using Foundation;
 
 public class SplashScreenViewModel : ISplashScreenViewModel
 {
 	private readonly SplashScreenModel _model;
 
-	private readonly RxProperty<SplashConfig> _currentSplash = new();
+	private readonly SplashScreenConfig _config;
 
-	private readonly Queue<SplashConfig> _splashQueue = new();
+	private readonly RxProperty<string> _currentSplashName = new();
+
+	private readonly Queue<string> _splashNameQueue = new();
 
 	#region ISplashScreenUiViewModel
 
-	public IRxProperty<SplashConfig> CurrentSplash => _currentSplash;
+	public IRxProperty<string> CurrentSplashName => _currentSplashName;
 
 	public void Next()
 	{
-		if (!_splashQueue.TryDequeue(out var splash))
+		if (!_splashNameQueue.TryDequeue(out var splash))
 		{
 			_model.Finish();
 		}
 
-		_currentSplash.Value = splash;
+		_currentSplashName.Value = splash;
 	}
 
 	public void Skip()
 	{
-		if (_currentSplash.Value is {IsSkipped: false})
+		var currentSplash = _config.Splashes.FirstOrDefault(config => config.Name == _currentSplashName.Value);
+
+		if (currentSplash is {IsSkipped: false})
 		{
 			return;
 		}
@@ -44,6 +49,7 @@ public class SplashScreenViewModel : ISplashScreenViewModel
 		SplashScreenConfig config)
 	{
 		_model = model;
+		_config = config;
 
 		if (config.Splashes == null)
 		{
@@ -52,7 +58,7 @@ public class SplashScreenViewModel : ISplashScreenViewModel
 
 		foreach (var splash in config.Splashes)
 		{
-			_splashQueue.Enqueue(splash);
+			_splashNameQueue.Enqueue(splash.Name);
 		}
 	}
 

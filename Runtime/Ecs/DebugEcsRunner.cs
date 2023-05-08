@@ -1,25 +1,23 @@
 namespace EM.GameKit
 {
 
-using IoC;
 using Leopotam.EcsLite;
 
 public sealed class DebugEcsRunner : EcsRunner
 {
 	#region EcsRunner
 
-	protected override void RegisterEcsSystems()
+	protected override void OnInitialized()
 	{
-		AddEcsSystems(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem());
+		EcsSystems.Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem());
 	}
 
 	#endregion
 
 	#region DebugEcsRunner
 
-	public DebugEcsRunner(IDiContainer diContainer,
-		EcsWorld ecsWorld)
-		: base(diContainer, ecsWorld)
+	public DebugEcsRunner(EcsWorld ecsWorld)
+		: base(ecsWorld)
 	{
 	}
 

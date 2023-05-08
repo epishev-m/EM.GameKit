@@ -1,65 +1,58 @@
 namespace EM.GameKit
 {
 
-using Foundation;
 using IoC;
 using Leopotam.EcsLite;
 
-public abstract class EcsRunner : IEcsRunner
+public abstract class EcsRunner : IGameLoopObject
 {
 	private readonly IDiContainer _diContainer;
 
-	private readonly IEcsSystems _ecsSystems;
+	protected readonly IEcsSystems EcsSystems;
 
-	#region IEcsRunner
+	private bool _isNotPaused;
 
-	public void Initialize()
+	#region IGameLoopObject
+
+	void IGameLoopObject.Initialize()
 	{
-		RegisterEcsSystems();
-		InitializeSystems();
+		OnInitialized();
+		EcsSystems.Init();
 	}
 
-	public void Release()
+	void IGameLoopObject.TurnOn()
 	{
-		_ecsSystems.Destroy();
+		_isNotPaused = false;
 	}
 
-	public void Update()
+	void IGameLoopObject.Tick(float deltaTime)
 	{
-		_ecsSystems?.Run();
+		if (_isNotPaused)
+		{
+			EcsSystems?.Run();
+		}
+	}
+
+	void IGameLoopObject.TurnOff()
+	{
+		_isNotPaused = true;
+	}
+
+	void IGameLoopObject.Release()
+	{
+		EcsSystems.Destroy();
 	}
 
 	#endregion
 
 	#region EcsRunner
 
-	protected EcsRunner(IDiContainer diContainer,
-		EcsWorld ecsWorld)
+	protected EcsRunner(EcsWorld ecsWorld)
 	{
-		_diContainer = diContainer;
-		_ecsSystems = new EcsSystems(ecsWorld);
+		EcsSystems = new EcsSystems(ecsWorld);
 	}
 
-	protected abstract void RegisterEcsSystems();
-
-	protected void AddEcsSystems(IEcsSystem ecsSystem)
-	{
-		Requires.NotNullParam(ecsSystem, nameof(ecsSystem));
-
-		_ecsSystems.Add(ecsSystem);
-	}
-
-	protected void AddEcsSystems<T>()
-		where T : class, IEcsSystemFactory
-	{
-		var ecsSystemFactory = _diContainer.Resolve<T>();
-		ecsSystemFactory.CreateSystems(_ecsSystems);
-	}
-
-	private void InitializeSystems()
-	{
-		_ecsSystems.Init();
-	}
+	protected abstract void OnInitialized();
 
 	#endregion
 }

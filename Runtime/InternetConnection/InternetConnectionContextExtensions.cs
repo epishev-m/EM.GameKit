@@ -3,11 +3,13 @@
 
 using Foundation;
 
-public static class InternetConnectionDiContainerExtensions
+public static class InternetConnectionContextExtensions
 {
-	public static Context BindInternetConnection(this Context context)
+	public static Context AddInternetConnection(this Context context)
 	{
-		var lifeTime = context.IsGlobalContext ? LifeTime.Global : LifeTime.Local;
+		var lifeTime = context.IsGlobalContext
+			? LifeTime.Global
+			: LifeTime.Local;
 
 		context.DiContainer
 			.Bind<InternetConnection>()
