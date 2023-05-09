@@ -38,15 +38,15 @@ public sealed class CheatsView : View<ICheatsViewModel>
 	{
 		base.OnInitialize();
 
-		Subscribe(ViewModel.VisibleGroups, _groupModuleViewContainer.SetVisibleGroups);
-		Subscribe(ViewModel.EnableGroups, _groupModuleViewContainer.SetEnableGroups);
-		Subscribe(ViewModel.VisibleCheats, _cheatModuleViewContainer.SetVisibleCheats);
-		Subscribe(_showGroupsButton.onClick, ShowGroups);
-		Subscribe(_hideGroupsButton.onClick, HideGroups);
-		Subscribe(_closeButton.onClick, ViewModel.Close);
+		ViewModel.VisibleGroups.Subscribe(_groupModuleViewContainer.SetVisibleGroups, CtsInstance);
+		ViewModel.EnableGroups.Subscribe(_groupModuleViewContainer.SetEnableGroups, CtsInstance);
+		ViewModel.VisibleCheats.Subscribe(_cheatModuleViewContainer.SetVisibleCheats, CtsInstance);
+		_showGroupsButton.Subscribe(ShowGroups, CtsInstance);
+		_hideGroupsButton.Subscribe(HideGroups, CtsInstance);
+		_closeButton.Subscribe(ViewModel.Close, CtsInstance);
 
 		_groupModuleViewContainer.Initialize(ViewModel);
-		_cheatModuleViewContainer.Initialize(this, ViewModel);
+		_cheatModuleViewContainer.Initialize(ViewModel);
 
 		ViewModel.UpdateAll();
 		ShowGroups();

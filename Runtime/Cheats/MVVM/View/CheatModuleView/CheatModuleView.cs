@@ -16,8 +16,6 @@ public sealed class CheatModuleView : MonoBehaviour
 
 	private readonly List<ICheatFieldView> _fieldViews = new();
 
-	private CheatsView _view;
-
 	private ICheatsViewModel _viewModel;
 
 	private FieldViewPool _fieldViewPool;
@@ -27,16 +25,13 @@ public sealed class CheatModuleView : MonoBehaviour
 	public string Name => _title.text;
 
 	public void Initialize(string cheat,
-		CheatsView view,
 		ICheatsViewModel viewModel,
 		FieldViewPool fieldViewPool)
 	{
-		Requires.NotNullParam(view, nameof(view));
 		Requires.NotNullParam(viewModel, nameof(viewModel));
 		Requires.NotNullParam(fieldViewPool, nameof(fieldViewPool));
 
 		_title.text = cheat;
-		_view = view;
 		_viewModel = viewModel;
 		_fieldViewPool = fieldViewPool;
 
@@ -79,7 +74,7 @@ public sealed class CheatModuleView : MonoBehaviour
 			}
 
 			var view = result.Data;
-			view.Initialize(_view, fieldViewModel);
+			view.Initialize(fieldViewModel);
 			_fieldViews.Add(view);
 		}
 	}

@@ -15,7 +15,7 @@ public sealed class CheatsRouter
 	{
 		_uiSystem = uiSystem;
 	}
-	
+
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
 		await _uiSystem.OpenAsync<CheatsView, CheatsViewModel>(ct);

@@ -3,6 +3,7 @@ namespace EM.GameKit
 
 using System.Globalization;
 using TMPro;
+using UI;
 using UnityEngine;
 
 public sealed class IntMinMaxSliderCheatFieldView : CheatFieldView<IntMinMaxSliderFieldViewModel>
@@ -23,12 +24,12 @@ public sealed class IntMinMaxSliderCheatFieldView : CheatFieldView<IntMinMaxSlid
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.MinValue, UpdateMinValue);
-		Subscribe(ViewModel.MaxValue, UpdateMaxValue);
-		Subscribe(_minInputField.onValueChanged, SetMinValue);
-		Subscribe(_maxInputField.onValueChanged, SetMaxValue);
-		Subscribe(_minMaxSlider.OnMinValueChanged, SetMinValue);
-		Subscribe(_minMaxSlider.OnMaxValueChanged, SetMaxValue);
+		ViewModel.MinValue.Subscribe(UpdateMinValue, CtsInstance);
+		ViewModel.MaxValue.Subscribe(UpdateMaxValue, CtsInstance);
+		_minInputField.Subscribe(SetMinValue, CtsInstance);
+		_maxInputField.Subscribe(SetMaxValue, CtsInstance);
+		_minMaxSlider.OnMinValueChanged.Subscribe(SetMinValue, CtsInstance);
+		_minMaxSlider.OnMaxValueChanged.Subscribe(SetMaxValue, CtsInstance);
 		
 		_label.text = ViewModel.Label;
 		_minMaxSlider.MinLimit = ViewModel.MinLimit;

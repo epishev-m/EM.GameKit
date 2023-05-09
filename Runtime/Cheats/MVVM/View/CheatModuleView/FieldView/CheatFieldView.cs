@@ -2,6 +2,7 @@ namespace EM.GameKit
 {
 
 using System;
+using System.Threading;
 using Foundation;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,18 +11,16 @@ public abstract class CheatFieldView<T> : MonoBehaviour,
 	ICheatFieldView
 	where T : IFieldViewModel
 {
-	private CheatsView _parentView;
-
 	private IFieldViewModel _viewModel;
+
+	protected readonly CancellationTokenSource CtsInstance = new();
 
 	#region ICheatFieldView
 
-	public void Initialize(CheatsView parentView, IFieldViewModel viewModel)
+	public void Initialize(IFieldViewModel viewModel)
 	{
-		Requires.NotNullParam(parentView, nameof(parentView));
 		Requires.NotNullParam(viewModel, nameof(viewModel));
 
-		_parentView = parentView;
 		_viewModel = viewModel;
 		_viewModel?.Initialize();
 		OnInitialize();
@@ -31,6 +30,7 @@ public abstract class CheatFieldView<T> : MonoBehaviour,
 	public virtual void Release()
 	{
 		OnRelease();
+		CtsInstance.Cancel();
 		_viewModel.Release();
 		_viewModel = null;
 	}
@@ -60,24 +60,6 @@ public abstract class CheatFieldView<T> : MonoBehaviour,
 
 	protected virtual void OnRelease()
 	{
-	}
-
-	protected void Subscribe<TValue>(IRxProperty<TValue> property,
-		Action<TValue> handler)
-	{
-		_parentView.Subscribe(property, handler);
-	}
-
-	protected void Subscribe(UnityEvent unityEvent,
-		Action handler)
-	{
-		_parentView.Subscribe(unityEvent, handler);
-	}
-
-	protected void Subscribe<TValue>(UnityEvent<TValue> unityEvent,
-		Action<TValue> handler)
-	{
-		_parentView.Subscribe(unityEvent, handler);
 	}
 
 	#endregion

@@ -2,6 +2,7 @@ namespace EM.GameKit
 {
 
 using TMPro;
+using UI;
 using UnityEngine;
 
 public sealed class IntCheatFieldView : CheatFieldView<IntFieldViewModel>
@@ -16,9 +17,9 @@ public sealed class IntCheatFieldView : CheatFieldView<IntFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Value, UpdateValue);
-		Subscribe(ViewModel.Label, UpdateLabel);
-		Subscribe(_inputField.onValueChanged, SetValue);
+		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
+		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
+		_inputField.Subscribe(SetValue, CtsInstance);
 	}
 
 	#endregion

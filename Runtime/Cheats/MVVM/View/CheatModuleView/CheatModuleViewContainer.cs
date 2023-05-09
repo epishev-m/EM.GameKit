@@ -33,8 +33,6 @@ public sealed class CheatModuleViewContainer : MonoBehaviour
 
 	private readonly List<CheatModuleView> _cheatViews = new();
 
-	private CheatsView _view;
-
 	private ICheatsViewModel _viewModel;
 
 	private CheatModuleViewPool _cheatModuleViewPool;
@@ -84,12 +82,10 @@ public sealed class CheatModuleViewContainer : MonoBehaviour
 		}
 	}
 
-	public void Initialize(CheatsView view, ICheatsViewModel viewModel)
+	public void Initialize(ICheatsViewModel viewModel)
 	{
-		Requires.NotNullParam(view, nameof(view));
 		Requires.NotNullParam(viewModel, nameof(viewModel));
 
-		_view = view;
 		_viewModel = viewModel;
 		_searchView.Initialize(_viewModel);
 		CreateCheats();
@@ -133,7 +129,7 @@ public sealed class CheatModuleViewContainer : MonoBehaviour
 			}
 
 			var cheatView = result.Data;
-			cheatView.Initialize(cheat, _view, _viewModel, _fieldViewPool);
+			cheatView.Initialize(cheat, _viewModel, _fieldViewPool);
 			_cheatViews.Add(cheatView);
 		}
 	}

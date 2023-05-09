@@ -2,6 +2,7 @@ namespace EM.GameKit
 {
 
 using TMPro;
+using UI;
 using UnityEngine;
 
 public sealed class InfoCheatFieldView : CheatFieldView<InfoFieldViewModel>
@@ -13,7 +14,7 @@ public sealed class InfoCheatFieldView : CheatFieldView<InfoFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Info, UpdateInfo);
+		ViewModel.Info.Subscribe(UpdateInfo, CtsInstance);
 	}
 
 	#endregion

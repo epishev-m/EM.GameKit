@@ -2,6 +2,7 @@ namespace EM.GameKit
 {
 
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,12 +30,12 @@ public sealed class Button3CheatFieldView : CheatFieldView<Button3FieldViewModel
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Label1, UpdateLabel1);
-		Subscribe(_button1.onClick, ViewModel.Execute1);
-		Subscribe(ViewModel.Label2, UpdateLabel2);
-		Subscribe(_button2.onClick, ViewModel.Execute2);
-		Subscribe(ViewModel.Label3, UpdateLabel3);
-		Subscribe(_button3.onClick, ViewModel.Execute3);
+		ViewModel.Label1.Subscribe(UpdateLabel1, CtsInstance);
+		_button1.Subscribe(ViewModel.Execute1, CtsInstance);
+		ViewModel.Label2.Subscribe(UpdateLabel2, CtsInstance);
+		_button2.Subscribe(ViewModel.Execute2, CtsInstance);
+		ViewModel.Label3.Subscribe(UpdateLabel3, CtsInstance);
+		_button3.Subscribe(ViewModel.Execute3, CtsInstance);
 	}
 
 	#endregion

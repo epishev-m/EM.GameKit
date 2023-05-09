@@ -3,7 +3,9 @@ namespace EM.GameKit
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Foundation;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,10 +26,12 @@ public sealed class GroupModuleViewContainer : MonoBehaviour
 	[SerializeField]
 	private SearchView _searchView;
 
-	 [SerializeField]
+	[SerializeField]
 	private GroupModuleView _groupModuleViewPrefab;
 
 	private readonly List<GroupModuleView> _groupViews = new();
+
+	private readonly CancellationTokenSource _ctxInstance = new();
 
 	private GroupModuleViewPool _groupModuleViewPool;
 
@@ -50,8 +54,10 @@ public sealed class GroupModuleViewContainer : MonoBehaviour
 		Requires.NotNullParam(viewModel, nameof(viewModel));
 
 		_viewModel = viewModel;
-		_enableAllButton.onClick.AddListener(_viewModel.EnableAllGroups);
-		_disableAllButton.onClick.AddListener(_viewModel.DisableAllGroups);
+
+		_enableAllButton.Subscribe(_viewModel.EnableAllGroups, _ctxInstance);
+		_disableAllButton.Subscribe(_viewModel.DisableAllGroups, _ctxInstance);
+
 		_searchView.Initialize(_viewModel);
 		CreateButtons();
 	}
@@ -60,8 +66,7 @@ public sealed class GroupModuleViewContainer : MonoBehaviour
 	{
 		ReleaseGroupButtonViews();
 		_searchView.Release();
-		_disableAllButton.onClick.RemoveAllListeners();
-		_enableAllButton.onClick.RemoveAllListeners();
+		_ctxInstance.Cancel();
 		_viewModel = null;
 	}
 

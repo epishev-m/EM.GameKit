@@ -20,7 +20,7 @@ public sealed class InternetConnectionView : View<IInternetConnectionViewModel>
 	{
 		base.OnInitialize();
 
-		Subscribe(_restartButton.onClick, ViewModel.Restart);
+		_restartButton.Subscribe(ViewModel.Restart, CtsInstance);
 	}
 
 	#endregion

@@ -3,6 +3,7 @@ namespace EM.GameKit
 
 using System.Globalization;
 using TMPro;
+using UI;
 using UnityEngine;
 
 public sealed class Vector4CheatFieldView : CheatFieldView<Vector4FieldViewModel>
@@ -26,15 +27,15 @@ public sealed class Vector4CheatFieldView : CheatFieldView<Vector4FieldViewModel
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.X, UpdateValueX);
-		Subscribe(ViewModel.Y, UpdateValueY);
-		Subscribe(ViewModel.Z, UpdateValueZ);
-		Subscribe(ViewModel.W, UpdateValueW);
-		Subscribe(ViewModel.Label, UpdateLabel);
-		Subscribe(_inputFieldX.onValueChanged, SetValueX);
-		Subscribe(_inputFieldY.onValueChanged, SetValueY);
-		Subscribe(_inputFieldZ.onValueChanged, SetValueZ);
-		Subscribe(_inputFieldW.onValueChanged, SetValueW);
+		ViewModel.X.Subscribe(UpdateValueX, CtsInstance);
+		ViewModel.Y.Subscribe(UpdateValueY, CtsInstance);
+		ViewModel.Z.Subscribe(UpdateValueZ, CtsInstance);
+		ViewModel.W.Subscribe(UpdateValueW, CtsInstance);
+		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
+		_inputFieldX.Subscribe(SetValueX, CtsInstance);
+		_inputFieldY.Subscribe(SetValueY, CtsInstance);
+		_inputFieldZ.Subscribe(SetValueZ, CtsInstance);
+		_inputFieldW.Subscribe(SetValueW, CtsInstance);
 	}
 
 	#endregion

@@ -25,9 +25,9 @@ public sealed class GdpRegulationView : View<IGdpRegulationViewModel>
 	{
 		base.OnInitialize();
 
-		Subscribe(_licenseButton.onClick, ViewModel.OpenLicence);
-		Subscribe(_privacyButton.onClick, ViewModel.OpenPrivacy);
-		Subscribe(_acceptButton.onClick, ViewModel.Accept);
+		_licenseButton.Subscribe(ViewModel.OpenLicence, CtsInstance);
+		_privacyButton.Subscribe(ViewModel.OpenPrivacy, CtsInstance);
+		_acceptButton.Subscribe(ViewModel.Accept, CtsInstance);
 	}
 
 	#endregion

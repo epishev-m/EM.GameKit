@@ -28,8 +28,8 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 	{
 		base.OnInitialize();
 
-		Subscribe(ViewModel.CurrentSplashName, ChangeSplash);
-		Subscribe(_skipButton.onClick, ViewModel.Skip);
+		ViewModel.CurrentSplashName.Subscribe(ChangeSplash, CtsInstance);
+		_skipButton.Subscribe(ViewModel.Skip, CtsInstance);
 
 		ViewModel.Next();
 	}

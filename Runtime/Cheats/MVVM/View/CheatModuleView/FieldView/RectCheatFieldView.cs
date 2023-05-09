@@ -3,6 +3,7 @@ namespace EM.GameKit
 
 using System.Globalization;
 using TMPro;
+using UI;
 using UnityEngine;
 
 public sealed class RectCheatFieldView : CheatFieldView<RectFieldViewModel>
@@ -26,15 +27,15 @@ public sealed class RectCheatFieldView : CheatFieldView<RectFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.X, UpdateValueX);
-		Subscribe(ViewModel.Y, UpdateValueY);
-		Subscribe(ViewModel.Width, UpdateValueWidth);
-		Subscribe(ViewModel.Height, UpdateValueHeight);
-		Subscribe(ViewModel.Label, UpdateLabel);
-		Subscribe(_inputFieldX.onValueChanged, SetValueX);
-		Subscribe(_inputFieldY.onValueChanged, SetValueY);
-		Subscribe(_inputFieldWidth.onValueChanged, SetValueWidth);
-		Subscribe(_inputFieldHeight.onValueChanged, SetValueHeight);
+		ViewModel.X.Subscribe(UpdateValueX, CtsInstance);
+		ViewModel.Y.Subscribe(UpdateValueY, CtsInstance);
+		ViewModel.Width.Subscribe(UpdateValueWidth, CtsInstance);
+		ViewModel.Height.Subscribe(UpdateValueHeight, CtsInstance);
+		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
+		_inputFieldX.Subscribe(SetValueX, CtsInstance);
+		_inputFieldY.Subscribe(SetValueY, CtsInstance);
+		_inputFieldWidth.Subscribe(SetValueWidth, CtsInstance);
+		_inputFieldHeight.Subscribe(SetValueHeight, CtsInstance);
 	}
 
 	#endregion

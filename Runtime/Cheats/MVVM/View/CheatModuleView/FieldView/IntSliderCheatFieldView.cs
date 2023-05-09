@@ -3,6 +3,7 @@ namespace EM.GameKit
 
 using System.Globalization;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,9 +22,9 @@ public sealed class IntSliderCheatFieldView : CheatFieldView<IntSliderFieldViewM
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Value, UpdateValue);
-		Subscribe(_inputField.onValueChanged, SetValue);
-		Subscribe(_slider.onValueChanged, SetValue);
+		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
+		_inputField.Subscribe(SetValue, CtsInstance);
+		_slider.Subscribe(SetValue, CtsInstance);
 
 		_label.text = ViewModel.Label;
 		_slider.minValue = ViewModel.MinLimit;

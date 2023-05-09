@@ -6,7 +6,7 @@ using UnityEngine;
 
 public interface ICheatFieldView
 {
-	void Initialize(CheatsView parentView, IFieldViewModel viewModel);
+	void Initialize(IFieldViewModel viewModel);
 	
 	void Release();
 

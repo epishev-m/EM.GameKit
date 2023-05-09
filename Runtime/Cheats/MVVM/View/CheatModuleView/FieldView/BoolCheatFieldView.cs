@@ -2,6 +2,7 @@ namespace EM.GameKit
 {
 
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,9 +18,9 @@ public sealed class BoolCheatFieldView : CheatFieldView<BoolFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Value, UpdateValue);
-		Subscribe(ViewModel.Label, UpdateLabel);
-		Subscribe(_toggle.onValueChanged, ViewModel.SetValue);
+		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
+		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
+		_toggle.Subscribe(ViewModel.SetValue, CtsInstance);
 	}
 
 	#endregion

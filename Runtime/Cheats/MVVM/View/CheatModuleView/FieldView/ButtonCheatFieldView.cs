@@ -2,6 +2,7 @@ namespace EM.GameKit
 {
 
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,8 +18,8 @@ public sealed class ButtonCheatFieldView : CheatFieldView<ButtonFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Label, UpdateLabel);
-		Subscribe(_button.onClick, ViewModel.Execute);
+		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
+		_button.Subscribe(ViewModel.Execute, CtsInstance);
 	}
 
 	#endregion

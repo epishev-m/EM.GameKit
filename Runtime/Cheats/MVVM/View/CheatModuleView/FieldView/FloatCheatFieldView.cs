@@ -3,6 +3,7 @@ namespace EM.GameKit
 
 using System.Globalization;
 using TMPro;
+using UI;
 using UnityEngine;
 
 public sealed class FloatCheatFieldView : CheatFieldView<FloatFieldViewModel>
@@ -17,9 +18,9 @@ public sealed class FloatCheatFieldView : CheatFieldView<FloatFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		Subscribe(ViewModel.Value, UpdateValue);
-		Subscribe(ViewModel.Label, UpdateLabel);
-		Subscribe(_inputField.onValueChanged, SetValue);
+		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
+		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
+		_inputField.Subscribe(SetValue, CtsInstance);
 	}
 
 	#endregion
