@@ -20,45 +20,41 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 
 	private SplashView _currentSplashView;
 
-	private CancellationTokenSource _cts;
-
 	#region View
 
 	protected override void OnInitialize()
 	{
 		base.OnInitialize();
 
-		ViewModel.CurrentSplashName.Subscribe(ChangeSplash, CtsInstance);
+		ViewModel.CurrentSplashName.Subscribe(ChangeSplashAsync, CtsInstance);
 		_skipButton.Subscribe(ViewModel.Skip, CtsInstance);
 
-		ViewModel.Next();
+		ViewModel.Show();
 	}
 
 	#endregion
 
 	#region SplashScreenView
 
-	private void ChangeSplash(string splash)
+	private async UniTask ChangeSplashAsync(string splash,
+		CancellationToken ct)
 	{
-		HideCurrent();
-		ShowAsync(splash).Forget();
+		Hide();
+		await ShowAsync(splash, ct);
 	}
 
-	private void HideCurrent()
+	private void Hide()
 	{
-		if (_currentSplashView == null)
+		if (_currentSplashView != null)
 		{
-			return;
+			_currentSplashView.Hide();
 		}
-
-		_cts.Cancel();
-		_currentSplashView.Hide();
-		_currentSplashView = null;
 	}
 
-	private async UniTask ShowAsync(string splash)
+	private async UniTask ShowAsync(string splash,
+		CancellationToken ct)
 	{
-		if (splash == null)
+		if (string.IsNullOrWhiteSpace(splash))
 		{
 			return;
 		}
@@ -69,12 +65,9 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 
 			if (_currentSplashView != null)
 			{
-				_cts = new CancellationTokenSource();
-				await _currentSplashView.ShowAsync(_cts.Token);
+				await _currentSplashView.ShowAsync(ct);
 			}
 		}
-
-		ViewModel.Next();
 	}
 
 	private bool TryGetView(string splashName,

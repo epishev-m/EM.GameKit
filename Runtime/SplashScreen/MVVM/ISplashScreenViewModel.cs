@@ -5,13 +5,13 @@ using Foundation;
 
 public interface ISplashScreenViewModel
 {
-	IRxProperty<string> CurrentSplashName
+	IAsyncRxProperty<string> CurrentSplashName
 	{
 		get;
 	}
 
-	void Next();
-
+	void Show();
+	
 	void Skip();
 }
 

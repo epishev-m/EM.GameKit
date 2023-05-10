@@ -2,43 +2,41 @@ namespace EM.GameKit
 {
 
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Foundation;
 
-public class SplashScreenViewModel : ISplashScreenViewModel
+public sealed class SplashScreenViewModel : ISplashScreenViewModel
 {
 	private readonly SplashScreenModel _model;
 
-	private readonly SplashScreenConfig _config;
-
-	private readonly RxProperty<string> _currentSplashName = new();
-
+	private readonly AsyncRxProperty<string> _currentSplashName = new();
+	
 	private readonly Queue<string> _splashNameQueue = new();
+	
+	private CancellationTokenSource _cts;
 
 	#region ISplashScreenUiViewModel
 
-	public IRxProperty<string> CurrentSplashName => _currentSplashName;
+	public IAsyncRxProperty<string> CurrentSplashName => _currentSplashName;
 
-	public void Next()
+	public void Show()
 	{
-		if (!_splashNameQueue.TryDequeue(out var splash))
+		if (_splashNameQueue.TryDequeue(out var splash))
 		{
+			ShowAsync(splash).Forget();
+			WaitCancelAsync().Forget();
+		}
+		else
+		{
+			ShowAsync(null).Forget();
 			_model.Finish();
 		}
-
-		_currentSplashName.Value = splash;
 	}
 
 	public void Skip()
 	{
-		var currentSplash = _config.Splashes.FirstOrDefault(config => config.Name == _currentSplashName.Value);
-
-		if (currentSplash is {IsSkipped: false})
-		{
-			return;
-		}
-
-		Next();
+		_cts?.Cancel();
 	}
 
 	#endregion
@@ -49,7 +47,6 @@ public class SplashScreenViewModel : ISplashScreenViewModel
 		SplashScreenConfig config)
 	{
 		_model = model;
-		_config = config;
 
 		if (config.Splashes == null)
 		{
@@ -62,6 +59,19 @@ public class SplashScreenViewModel : ISplashScreenViewModel
 		}
 	}
 
+	private async UniTask ShowAsync(string splash)
+	{
+		_cts = new CancellationTokenSource();
+		await _currentSplashName.SetValueAsync(splash, _cts.Token);
+		_cts.Cancel();
+	}
+	
+	private async UniTask WaitCancelAsync()
+	{
+		await _cts.Token.WaitUntilCanceled();
+		Show();
+	}
+	
 	#endregion
 }
 
