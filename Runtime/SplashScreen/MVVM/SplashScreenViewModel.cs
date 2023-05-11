@@ -10,10 +10,12 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 {
 	private readonly SplashScreenModel _model;
 
+	private readonly ISplashScreenConfigProvider _configProvider;
+
 	private readonly AsyncRxProperty<string> _currentSplashName = new();
-	
-	private readonly Queue<string> _splashNameQueue = new();
-	
+
+	private Queue<string> _splashNameQueue;
+
 	private CancellationTokenSource _cts;
 
 	#region ISplashScreenUiViewModel
@@ -22,6 +24,8 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 
 	public void Show()
 	{
+		FillSplashNameQueue();
+
 		if (_splashNameQueue.TryDequeue(out var splash))
 		{
 			ShowAsync(splash).Forget();
@@ -36,7 +40,10 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 
 	public void Skip()
 	{
-		_cts?.Cancel();
+		if (_configProvider.CheckSkipByName(_currentSplashName.Value))
+		{
+			_cts?.Cancel();
+		}
 	}
 
 	#endregion
@@ -44,19 +51,20 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 	#region SplashScreenViewModel
 
 	public SplashScreenViewModel(SplashScreenModel model,
-		SplashScreenConfig config)
+		ISplashScreenConfigProvider configProvider)
 	{
 		_model = model;
+		_configProvider = configProvider;
+	}
 
-		if (config.Splashes == null)
+	private void FillSplashNameQueue()
+	{
+		if (_splashNameQueue != null)
 		{
 			return;
 		}
 
-		foreach (var splash in config.Splashes)
-		{
-			_splashNameQueue.Enqueue(splash.Name);
-		}
+		_splashNameQueue = _configProvider.GetSplashNameQueue();
 	}
 
 	private async UniTask ShowAsync(string splash)
@@ -65,13 +73,13 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 		await _currentSplashName.SetValueAsync(splash, _cts.Token);
 		_cts.Cancel();
 	}
-	
+
 	private async UniTask WaitCancelAsync()
 	{
 		await _cts.Token.WaitUntilCanceled();
 		Show();
 	}
-	
+
 	#endregion
 }
 

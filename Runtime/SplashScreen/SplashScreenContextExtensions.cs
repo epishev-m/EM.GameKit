@@ -5,7 +5,7 @@ using Foundation;
 
 public static class SplashScreenContextExtensions
 {
-	public static Context BindSystemSplashScreen(this Context context)
+	public static Context AddSystemSplashScreen(this Context context)
 	{
 		var lifeTime = context.IsGlobalContext
 			? LifeTime.Global

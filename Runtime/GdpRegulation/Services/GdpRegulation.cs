@@ -10,17 +10,26 @@ public sealed class GdpRegulation
 
 	private readonly GdpRegulationRouter _router;
 
+	private readonly IGdpRegulationConfigProvider _configProvider;
+
 	#region GdpRegulation
 
 	public GdpRegulation(GdpRegulationModel model,
-		GdpRegulationRouter router)
+		GdpRegulationRouter router,
+		IGdpRegulationConfigProvider configProvider)
 	{
 		_model = model;
 		_router = router;
+		_configProvider = configProvider;
 	}
 
 	public async UniTask ShowAsync(CancellationToken ct)
 	{
+		if (!_configProvider.IsUsed)
+		{
+			return;
+		}
+
 		if (_model.IsAccepted)
 		{
 			return;

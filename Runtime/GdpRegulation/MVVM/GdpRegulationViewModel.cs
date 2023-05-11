@@ -7,7 +7,7 @@ public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
 {
 	private readonly GdpRegulationModel _gdpRegulationModel;
 
-	private readonly GdpRegulationConfig _configs;
+	private readonly IGdpRegulationConfigProvider _configsProvider;
 
 	#region IGdpRegulationViewModel
 
@@ -18,12 +18,12 @@ public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
 
 	public void OpenPrivacy()
 	{
-		Application.OpenURL(_configs.PrivacyUrl);
+		Application.OpenURL(_configsProvider.PrivacyUrl);
 	}
 
 	public void OpenLicence()
 	{
-		Application.OpenURL(_configs.LicenseUrl);
+		Application.OpenURL(_configsProvider.LicenseUrl);
 	}
 
 	#endregion
@@ -31,10 +31,10 @@ public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
 	#region GdpRegulationViewModel
 
 	public GdpRegulationViewModel(GdpRegulationModel gdpRegulationModel,
-		GdpRegulationConfig configs)
+		IGdpRegulationConfigProvider configsProvider)
 	{
 		_gdpRegulationModel = gdpRegulationModel;
-		_configs = configs;
+		_configsProvider = configsProvider;
 	}
 
 	#endregion
