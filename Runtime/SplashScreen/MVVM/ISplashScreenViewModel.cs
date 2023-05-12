@@ -5,7 +5,7 @@ using Foundation;
 
 public interface ISplashScreenViewModel
 {
-	IAsyncRxProperty<string> CurrentSplashName
+	IObservableFieldAsync<string> CurrentSplashName
 	{
 		get;
 	}

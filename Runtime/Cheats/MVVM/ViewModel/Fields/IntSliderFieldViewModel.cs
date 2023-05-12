@@ -5,7 +5,7 @@ using Foundation;
 
 public sealed class IntSliderFieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<int> _value = new();
+	private readonly ObservableField<int> _value = new();
 
 	private readonly IntSliderCheatFieldModel _model;
 
@@ -35,7 +35,7 @@ public sealed class IntSliderFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<int> Value => _value;
+	public IObservableField<int> Value => _value;
 
 	public int MinLimit => _model.MinLimit;
 
@@ -51,7 +51,7 @@ public sealed class IntSliderFieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_value.Value = _model.Value;
+		_value.SetValue(_model.Value);
 	}
 
 	#endregion

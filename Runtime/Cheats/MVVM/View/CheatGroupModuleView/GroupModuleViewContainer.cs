@@ -55,8 +55,8 @@ public sealed class GroupModuleViewContainer : MonoBehaviour
 
 		_viewModel = viewModel;
 
-		_enableAllButton.Subscribe(_viewModel.EnableAllGroups, _ctxInstance);
-		_disableAllButton.Subscribe(_viewModel.DisableAllGroups, _ctxInstance);
+		this.Subscribe(_enableAllButton, _viewModel.EnableAllGroups, _ctxInstance);
+		this.Subscribe(_disableAllButton, _viewModel.DisableAllGroups, _ctxInstance);
 
 		_searchView.Initialize(_viewModel);
 		CreateButtons();

@@ -24,19 +24,19 @@ public sealed class IntMinMaxSliderCheatFieldView : CheatFieldView<IntMinMaxSlid
 
 	protected override void OnInitialize()
 	{
-		ViewModel.MinValue.Subscribe(UpdateMinValue, CtsInstance);
-		ViewModel.MaxValue.Subscribe(UpdateMaxValue, CtsInstance);
-		_minInputField.Subscribe(SetMinValue, CtsInstance);
-		_maxInputField.Subscribe(SetMaxValue, CtsInstance);
-		_minMaxSlider.OnMinValueChanged.Subscribe(SetMinValue, CtsInstance);
-		_minMaxSlider.OnMaxValueChanged.Subscribe(SetMaxValue, CtsInstance);
-		
+		this.Subscribe(ViewModel.MinValue, UpdateMinValue, CtsInstance);
+		this.Subscribe(ViewModel.MaxValue, UpdateMaxValue, CtsInstance);
+		this.Subscribe(_minInputField, SetMinValue, CtsInstance);
+		this.Subscribe(_maxInputField, SetMaxValue, CtsInstance);
+		this.Subscribe(_minMaxSlider.OnMinValueChanged, SetMinValue, CtsInstance);
+		this.Subscribe(_minMaxSlider.OnMaxValueChanged, SetMaxValue, CtsInstance);
+
 		_label.text = ViewModel.Label;
 		_minMaxSlider.MinLimit = ViewModel.MinLimit;
 		_minMaxSlider.MaxLimit = ViewModel.MaxLimit;
 		_minMaxSlider.MinDistance = ViewModel.MinDistance;
 	}
-	
+
 	private void UpdateMinValue(int value)
 	{
 		_minInputField.SetTextWithoutNotify(value.ToString(CultureInfo.CurrentUICulture));

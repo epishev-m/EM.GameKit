@@ -6,11 +6,11 @@ using UnityEngine;
 
 public sealed class Vector2FieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<float> _x = new();
+	private readonly ObservableField<float> _x = new();
 
-	private readonly RxProperty<float> _y = new();
+	private readonly ObservableField<float> _y = new();
 
-	private readonly RxProperty<string> _label = new();
+	private readonly ObservableField<string> _label = new();
 
 	private readonly Vector2CheatFieldModel _model;
 
@@ -40,11 +40,11 @@ public sealed class Vector2FieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<float> X => _x;
+	public IObservableField<float> X => _x;
 
-	public IRxProperty<float> Y => _y;
+	public IObservableField<float> Y => _y;
 
-	public IRxProperty<string> Label => _label;
+	public IObservableField<string> Label => _label;
 
 	public void SetX(float value)
 	{
@@ -60,9 +60,9 @@ public sealed class Vector2FieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_label.Value = _model.Label;
-		_x.Value = _model.Value.x;
-		_y.Value = _model.Value.y;
+		_label.SetValue(_model.Label);
+		_x.SetValue(_model.Value.x);
+		_y.SetValue(_model.Value.y);
 	}
 
 	#endregion

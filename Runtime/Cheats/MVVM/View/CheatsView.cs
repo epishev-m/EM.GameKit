@@ -37,25 +37,14 @@ public sealed class CheatsView : View<ICheatsViewModel>
 	protected override void OnInitialize()
 	{
 		base.OnInitialize();
-
-		ViewModel.VisibleGroups.Subscribe(_groupModuleViewContainer.SetVisibleGroups, CtsInstance);
-		ViewModel.EnableGroups.Subscribe(_groupModuleViewContainer.SetEnableGroups, CtsInstance);
-		ViewModel.VisibleCheats.Subscribe(_cheatModuleViewContainer.SetVisibleCheats, CtsInstance);
-		_showGroupsButton.Subscribe(ShowGroups, CtsInstance);
-		_hideGroupsButton.Subscribe(HideGroups, CtsInstance);
-		_closeButton.Subscribe(ViewModel.Close, CtsInstance);
-
-		_groupModuleViewContainer.Initialize(ViewModel);
-		_cheatModuleViewContainer.Initialize(ViewModel);
-
-		ViewModel.UpdateAll();
-		ShowGroups();
+		InitializeModules();
+		Connect();
+		SetInitialState();
 	}
 
 	protected override void OnRelease()
 	{
 		base.OnRelease();
-
 		_cheatModuleViewContainer.Release();
 		_groupModuleViewContainer.Release();
 	}
@@ -63,6 +52,28 @@ public sealed class CheatsView : View<ICheatsViewModel>
 	#endregion
 
 	#region CheatsView
+
+	private void InitializeModules()
+	{
+		_groupModuleViewContainer.Initialize(ViewModel);
+		_cheatModuleViewContainer.Initialize(ViewModel);
+	}
+
+	private void Connect()
+	{
+		this.Subscribe(ViewModel.VisibleGroups, _groupModuleViewContainer.SetVisibleGroups, CtsInstance);
+		this.Subscribe(ViewModel.EnableGroups, _groupModuleViewContainer.SetEnableGroups, CtsInstance);
+		this.Subscribe(ViewModel.VisibleCheats, _cheatModuleViewContainer.SetVisibleCheats, CtsInstance);
+		this.Subscribe(_showGroupsButton, ShowGroups, CtsInstance);
+		this.Subscribe(_hideGroupsButton, HideGroups, CtsInstance);
+		this.Subscribe(_closeButton, ViewModel.Close, CtsInstance);
+	}
+
+	private void SetInitialState()
+	{
+		ViewModel.UpdateAll();
+		ShowGroups();
+	}
 
 	private void ShowGroups()
 	{

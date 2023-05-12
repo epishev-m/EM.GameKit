@@ -14,7 +14,7 @@ public sealed class InfoCheatFieldView : CheatFieldView<InfoFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		ViewModel.Info.Subscribe(UpdateInfo, CtsInstance);
+		this.Subscribe(ViewModel.Info, UpdateInfo, CtsInstance);
 	}
 
 	#endregion

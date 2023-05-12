@@ -6,7 +6,7 @@ using Foundation;
 
 public sealed class SliderFieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<float> _value = new();
+	private readonly ObservableField<float> _value = new();
 
 	private readonly SliderCheatFieldModel _model;
 
@@ -36,7 +36,7 @@ public sealed class SliderFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<float> Value => _value;
+	public Foundation.IObservableField<float> Value => _value;
 
 	public float MinLimit => _model.MinValue;
 
@@ -52,7 +52,7 @@ public sealed class SliderFieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_value.Value = _model.Value;
+		_value.SetValue(_model.Value);
 	}
 
 	#endregion

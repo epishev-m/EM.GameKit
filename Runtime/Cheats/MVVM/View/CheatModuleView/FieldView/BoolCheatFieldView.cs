@@ -18,9 +18,9 @@ public sealed class BoolCheatFieldView : CheatFieldView<BoolFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
-		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
-		_toggle.Subscribe(ViewModel.SetValue, CtsInstance);
+		this.Subscribe(ViewModel.Value, UpdateValue, CtsInstance);
+		this.Subscribe(ViewModel.Label, UpdateLabel, CtsInstance);
+		this.Subscribe(_toggle, ViewModel.SetValue, CtsInstance);
 	}
 
 	#endregion

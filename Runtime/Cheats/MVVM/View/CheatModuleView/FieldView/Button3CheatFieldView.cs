@@ -30,12 +30,12 @@ public sealed class Button3CheatFieldView : CheatFieldView<Button3FieldViewModel
 
 	protected override void OnInitialize()
 	{
-		ViewModel.Label1.Subscribe(UpdateLabel1, CtsInstance);
-		_button1.Subscribe(ViewModel.Execute1, CtsInstance);
-		ViewModel.Label2.Subscribe(UpdateLabel2, CtsInstance);
-		_button2.Subscribe(ViewModel.Execute2, CtsInstance);
-		ViewModel.Label3.Subscribe(UpdateLabel3, CtsInstance);
-		_button3.Subscribe(ViewModel.Execute3, CtsInstance);
+		this.Subscribe(ViewModel.Label1, UpdateLabel1, CtsInstance);
+		this.Subscribe(_button1, ViewModel.Execute1, CtsInstance);
+		this.Subscribe(ViewModel.Label2, UpdateLabel2, CtsInstance);
+		this.Subscribe(_button2, ViewModel.Execute2, CtsInstance);
+		this.Subscribe(ViewModel.Label3, UpdateLabel3, CtsInstance);
+		this.Subscribe(_button3, ViewModel.Execute3, CtsInstance);
 	}
 
 	#endregion

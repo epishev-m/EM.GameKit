@@ -17,9 +17,9 @@ public sealed class IntCheatFieldView : CheatFieldView<IntFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
-		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
-		_inputField.Subscribe(SetValue, CtsInstance);
+		this.Subscribe(ViewModel.Value, UpdateValue, CtsInstance);
+		this.Subscribe(ViewModel.Label, UpdateLabel, CtsInstance);
+		this.Subscribe(_inputField, SetValue, CtsInstance);
 	}
 
 	#endregion

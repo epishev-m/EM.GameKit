@@ -6,11 +6,11 @@ using Foundation;
 
 public interface ICheatsViewModel
 {
-	IRxProperty<IEnumerable<string>> VisibleGroups { get; }
+	IObservableField<IEnumerable<string>> VisibleGroups { get; }
 
-	IRxProperty<IEnumerable<string>> EnableGroups { get; }
+	IObservableField<IEnumerable<string>> EnableGroups { get; }
 
-	IRxProperty<IEnumerable<string>> VisibleCheats { get; }
+	IObservableField<IEnumerable<string>> VisibleCheats { get; }
 
 	IEnumerable<string> Groups { get; }
 

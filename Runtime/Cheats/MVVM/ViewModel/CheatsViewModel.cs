@@ -9,11 +9,11 @@ using Foundation;
 
 public sealed class CheatsViewModel : ICheatsViewModel
 {
-	private readonly RxProperty<List<string>> _visibleGroups = new();
+	private readonly ObservableField<List<string>> _visibleGroups = new();
 
-	private readonly RxProperty<List<string>> _enableGroups = new();
+	private readonly ObservableField<List<string>> _enableGroups = new();
 
-	private readonly RxProperty<List<string>> _visibleCheats = new();
+	private readonly ObservableField<List<string>> _visibleCheats = new();
 
 	private readonly CheatsModel _cheatModel;
 
@@ -23,11 +23,11 @@ public sealed class CheatsViewModel : ICheatsViewModel
 
 	#region ICheatsViewModel
 
-	public IRxProperty<IEnumerable<string>> VisibleGroups => _visibleGroups;
+	public IObservableField<IEnumerable<string>> VisibleGroups => _visibleGroups;
 
-	public IRxProperty<IEnumerable<string>> EnableGroups => _enableGroups;
+	public IObservableField<IEnumerable<string>> EnableGroups => _enableGroups;
 
-	public IRxProperty<IEnumerable<string>> VisibleCheats => _visibleCheats;
+	public IObservableField<IEnumerable<string>> VisibleCheats => _visibleCheats;
 
 	public IEnumerable<string> Groups => _cheatModel.GetGroups();
 
@@ -36,28 +36,35 @@ public sealed class CheatsViewModel : ICheatsViewModel
 	public void UpdateAll()
 	{
 		var groups = _cheatModel.GetGroups().ToArray();
-		_visibleGroups.Value = new List<string>(groups);
-		_enableGroups.Value = new List<string>(groups);
-		_visibleCheats.Value = new List<string>(_cheatModel.GetNames());
+		var visibleGroups = new List<string>(groups);
+		var enableGroups = new List<string>(groups);
+		var visibleCheats = new List<string>(_cheatModel.GetNames());
+		_visibleGroups.SetValue(visibleGroups);
+		_enableGroups.SetValue(enableGroups);
+		_visibleCheats.SetValue(visibleCheats);
 	}
 
 	public void EnableAllGroups()
 	{
-		_enableGroups.Value = new List<string>(_cheatModel.GetGroups());
-		_visibleCheats.Value = new List<string>(_cheatModel.GetNames());
+		var enableGroups = new List<string>(_cheatModel.GetGroups());
+		var visibleCheats = new List<string>(_cheatModel.GetNames());
+		_enableGroups.SetValue(enableGroups); 
+		_visibleCheats.SetValue(visibleCheats);
 	}
 
 	public void DisableAllGroups()
 	{
-		_enableGroups.Value = new List<string>();
-		_visibleCheats.Value = new List<string>();
+		_enableGroups.SetValue(new List<string>());
+		_visibleCheats.SetValue(new List<string>());
 	}
 
 	public void SetFilterVisibleGroups(string filter)
 	{
 		var filterLower = filter.ToLower();
-		var groups = _cheatModel.GetGroups().Where(group => group.ToLower().Contains(filterLower));
-		_visibleGroups.Value = new List<string>(groups);
+		var groups = _cheatModel.GetGroups()
+			.Where(group => group.ToLower().Contains(filterLower))
+			.ToList();
+		_visibleGroups.SetValue(groups);
 	}
 
 	public void SetEnableGroupByName(string name,
@@ -70,14 +77,17 @@ public sealed class CheatsViewModel : ICheatsViewModel
 
 		if (value && !EnableGroups.Value.Contains(name))
 		{
-			_enableGroups.Value = new List<string>(EnableGroups.Value)
+			var enableGroups = new List<string>(EnableGroups.Value)
 			{
 				name
 			};
+
+			_enableGroups.SetValue(enableGroups);
 		}
 		else if (!value && _enableGroups.Value.Remove(name))
 		{
-			_enableGroups.Value = new List<string>(EnableGroups.Value);
+			var enableGroups = new List<string>(EnableGroups.Value);
+			_enableGroups.SetValue(enableGroups);
 		}
 		
 		ApplyFilterVisibleCheats();
@@ -135,7 +145,8 @@ public sealed class CheatsViewModel : ICheatsViewModel
 			names = names.Where(n => n.ToLower().Contains(filterLower));
 		}
 
-		_visibleCheats.Value = new List<string>(names);
+		var visibleCheats = new List<string>(names);
+		_visibleCheats.SetValue(visibleCheats);
 	}
 
 	private static Result<IFieldViewModel> CreateFieldViewModel(ICheatFieldModel fieldModel)

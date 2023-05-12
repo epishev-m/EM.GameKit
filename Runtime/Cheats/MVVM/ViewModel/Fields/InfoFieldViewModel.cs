@@ -5,7 +5,7 @@ using Foundation;
 
 public sealed class InfoFieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<string> _info = new();
+	private readonly ObservableField<string> _info = new();
 
 	private readonly InfoCheatFieldModel _model;
 
@@ -21,7 +21,7 @@ public sealed class InfoFieldViewModel : IFieldViewModel
 
 	void IFieldViewModel.UpdateAllRxProperties()
 	{
-		_info.Value = _model.Info;
+		_info.SetValue(_model.Info);
 	}
 
 	#endregion
@@ -33,7 +33,7 @@ public sealed class InfoFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<string> Info => _info;
+	public IObservableField<string> Info => _info;
 
 	#endregion
 }

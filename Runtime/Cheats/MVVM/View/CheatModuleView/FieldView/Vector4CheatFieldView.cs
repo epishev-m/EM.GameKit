@@ -27,15 +27,15 @@ public sealed class Vector4CheatFieldView : CheatFieldView<Vector4FieldViewModel
 
 	protected override void OnInitialize()
 	{
-		ViewModel.X.Subscribe(UpdateValueX, CtsInstance);
-		ViewModel.Y.Subscribe(UpdateValueY, CtsInstance);
-		ViewModel.Z.Subscribe(UpdateValueZ, CtsInstance);
-		ViewModel.W.Subscribe(UpdateValueW, CtsInstance);
-		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
-		_inputFieldX.Subscribe(SetValueX, CtsInstance);
-		_inputFieldY.Subscribe(SetValueY, CtsInstance);
-		_inputFieldZ.Subscribe(SetValueZ, CtsInstance);
-		_inputFieldW.Subscribe(SetValueW, CtsInstance);
+		this.Subscribe(ViewModel.X, UpdateValueX, CtsInstance);
+		this.Subscribe(ViewModel.Y, UpdateValueY, CtsInstance);
+		this.Subscribe(ViewModel.Z, UpdateValueZ, CtsInstance);
+		this.Subscribe(ViewModel.W, UpdateValueW, CtsInstance);
+		this.Subscribe(ViewModel.Label, UpdateLabel, CtsInstance);
+		this.Subscribe(_inputFieldX, SetValueX, CtsInstance);
+		this.Subscribe(_inputFieldY, SetValueY, CtsInstance);
+		this.Subscribe(_inputFieldZ, SetValueZ, CtsInstance);
+		this.Subscribe(_inputFieldW, SetValueW, CtsInstance);
 	}
 
 	#endregion

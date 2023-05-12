@@ -12,7 +12,7 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 
 	private readonly ISplashScreenConfigProvider _configProvider;
 
-	private readonly AsyncRxProperty<string> _currentSplashName = new();
+	private readonly ObservableFieldAsync<string> _currentSplashName = new();
 
 	private Queue<string> _splashNameQueue;
 
@@ -20,7 +20,7 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 
 	#region ISplashScreenUiViewModel
 
-	public IAsyncRxProperty<string> CurrentSplashName => _currentSplashName;
+	public IObservableFieldAsync<string> CurrentSplashName => _currentSplashName;
 
 	public void Show()
 	{

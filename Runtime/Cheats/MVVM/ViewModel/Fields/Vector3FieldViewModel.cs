@@ -6,13 +6,13 @@ using UnityEngine;
 
 public sealed class Vector3FieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<float> _x = new();
+	private readonly ObservableField<float> _x = new();
 
-	private readonly RxProperty<float> _y = new();
+	private readonly ObservableField<float> _y = new();
 
-	private readonly RxProperty<float> _z = new();
+	private readonly ObservableField<float> _z = new();
 
-	private readonly RxProperty<string> _label = new();
+	private readonly ObservableField<string> _label = new();
 
 	private readonly Vector3CheatFieldModel _model;
 
@@ -42,13 +42,13 @@ public sealed class Vector3FieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<float> X => _x;
+	public IObservableField<float> X => _x;
 
-	public IRxProperty<float> Y => _y;
+	public IObservableField<float> Y => _y;
 
-	public IRxProperty<float> Z => _z;
+	public IObservableField<float> Z => _z;
 
-	public IRxProperty<string> Label => _label;
+	public IObservableField<string> Label => _label;
 
 	public void SetX(float value)
 	{
@@ -70,10 +70,10 @@ public sealed class Vector3FieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_label.Value = _model.Label;
-		_x.Value = _model.Value.x;
-		_y.Value = _model.Value.y;
-		_z.Value = _model.Value.z;
+		_label.SetValue(_model.Label);
+		_x.SetValue(_model.Value.x);
+		_y.SetValue(_model.Value.y);
+		_z.SetValue(_model.Value.z);
 	}
 
 	#endregion

@@ -6,15 +6,15 @@ using UnityEngine;
 
 public sealed class RectFieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<float> _x = new();
+	private readonly ObservableField<float> _x = new();
 
-	private readonly RxProperty<float> _y = new();
+	private readonly ObservableField<float> _y = new();
 
-	private readonly RxProperty<float> _width = new();
+	private readonly ObservableField<float> _width = new();
 
-	private readonly RxProperty<float> _height = new();
+	private readonly ObservableField<float> _height = new();
 
-	private readonly RxProperty<string> _label = new();
+	private readonly ObservableField<string> _label = new();
 
 	private readonly RectCheatFieldModel _model;
 
@@ -44,15 +44,15 @@ public sealed class RectFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<float> X => _x;
+	public IObservableField<float> X => _x;
 
-	public IRxProperty<float> Y => _y;
+	public IObservableField<float> Y => _y;
 
-	public IRxProperty<float> Width => _width;
+	public IObservableField<float> Width => _width;
 
-	public IRxProperty<float> Height => _height;
+	public IObservableField<float> Height => _height;
 
-	public IRxProperty<string> Label => _label;
+	public IObservableField<string> Label => _label;
 
 	public void SetX(float value)
 	{
@@ -80,11 +80,11 @@ public sealed class RectFieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_label.Value = _model.Label;
-		_x.Value = _model.Value.x;
-		_y.Value = _model.Value.y;
-		_width.Value = _model.Value.width;
-		_height.Value = _model.Value.height;
+		_label.SetValue(_model.Label);
+		_x.SetValue(_model.Value.x);
+		_y.SetValue(_model.Value.y);
+		_width.SetValue(_model.Value.width);
+		_height.SetValue(_model.Value.height);
 	}
 
 	#endregion

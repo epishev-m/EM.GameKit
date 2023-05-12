@@ -5,7 +5,7 @@ using Foundation;
 
 public sealed class ButtonFieldViewModel : IFieldViewModel
 {
-	private RxProperty<string> _label = new();
+	private ObservableField<string> _label = new();
 
 	private readonly ButtonCheatFieldModel _model;
 
@@ -21,7 +21,7 @@ public sealed class ButtonFieldViewModel : IFieldViewModel
 
 	void IFieldViewModel.UpdateAllRxProperties()
 	{
-		_label.Value = _model.Label;
+		_label.SetValue(_model.Label);
 	}
 
 	#endregion
@@ -33,7 +33,7 @@ public sealed class ButtonFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<string> Label => _label;
+	public IObservableField<string> Label => _label;
 
 	public void Execute()
 	{

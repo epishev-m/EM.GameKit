@@ -5,9 +5,9 @@ using Foundation;
 
 public sealed class IntMinMaxSliderFieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<int> _minValue = new();
+	private readonly ObservableField<int> _minValue = new();
 
-	private readonly RxProperty<int> _maxValue = new();
+	private readonly ObservableField<int> _maxValue = new();
 
 	private readonly IntMinMaxSliderCheatFieldModel _model;
 
@@ -37,9 +37,9 @@ public sealed class IntMinMaxSliderFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<int> MinValue => _minValue;
+	public IObservableField<int> MinValue => _minValue;
 
-	public IRxProperty<int> MaxValue => _maxValue;
+	public IObservableField<int> MaxValue => _maxValue;
 
 	public int MinLimit => _model.MinLimit;
 
@@ -63,8 +63,8 @@ public sealed class IntMinMaxSliderFieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_minValue.Value = _model.MinValue;
-		_maxValue.Value = _model.MaxValue;
+		_minValue.SetValue(_model.MinValue);
+		_maxValue.SetValue(_model.MaxValue);
 	}
 
 	#endregion

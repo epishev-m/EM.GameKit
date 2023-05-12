@@ -2,7 +2,6 @@
     "name": "EM.GameKit.Editor",
     "rootNamespace": "",
     "references": [
-        "EM.Foundation.Editor",
         "EM.GameKit",
         "EM.Assistant.Editor"
     ],

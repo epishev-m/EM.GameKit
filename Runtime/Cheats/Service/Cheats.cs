@@ -2,10 +2,7 @@ namespace EM.GameKit
 {
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Foundation;
-using IoC;
 
 public sealed class Cheats : IDisposable
 {
@@ -13,7 +10,7 @@ public sealed class Cheats : IDisposable
 	public static CheatsModel CheatsModel { get; set; }
 #endif
 
-	private readonly IDiContainer _diContainer;
+	private readonly ICheatFactory _cheatFactory;
 
 	private readonly ICheatBinder _cheatBinder;
 
@@ -30,13 +27,13 @@ public sealed class Cheats : IDisposable
 
 	#region Cheats
 
-	public Cheats(IDiContainer diContainer,
+	public Cheats(ICheatFactory cheatFactory,
 #if UNITY_EDITOR
 		CheatsModel cheatsModel,
 #endif
 		ICheatBinder cheatBinder)
 	{
-		_diContainer = diContainer;
+		_cheatFactory = cheatFactory;
 		_cheatBinder = cheatBinder;
 
 #if UNITY_EDITOR
@@ -49,7 +46,7 @@ public sealed class Cheats : IDisposable
 	public Cheats Add<T>()
 		where T : class, ICheat
 	{
-		var cheat = _diContainer.Resolve<T>();
+		var cheat = _cheatFactory.Get<T>();
 		cheat.Registration(_cheatBinder);
 
 		return this;

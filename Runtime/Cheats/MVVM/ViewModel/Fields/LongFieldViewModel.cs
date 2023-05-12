@@ -5,9 +5,9 @@ using Foundation;
 
 public sealed class LongFieldViewModel : IFieldViewModel
 {
-	private readonly RxProperty<long> _value = new();
+	private readonly ObservableField<long> _value = new();
 
-	private readonly RxProperty<string> _label = new();
+	private readonly ObservableField<string> _label = new();
 
 	private readonly LongCheatFieldModel _model;
 
@@ -37,9 +37,9 @@ public sealed class LongFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public IRxProperty<long> Value => _value;
+	public IObservableField<long> Value => _value;
 
-	public IRxProperty<string> Label => _label;
+	public IObservableField<string> Label => _label;
 
 	public void SetValue(long value)
 	{
@@ -49,8 +49,8 @@ public sealed class LongFieldViewModel : IFieldViewModel
 
 	private void OnChangeModel()
 	{
-		_label.Value = _model.Label;
-		_value.Value = _model.Value;
+		_label.SetValue(_model.Label);
+		_value.SetValue(_model.Value);
 	}
 
 	#endregion

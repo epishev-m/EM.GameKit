@@ -27,15 +27,15 @@ public sealed class RectCheatFieldView : CheatFieldView<RectFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		ViewModel.X.Subscribe(UpdateValueX, CtsInstance);
-		ViewModel.Y.Subscribe(UpdateValueY, CtsInstance);
-		ViewModel.Width.Subscribe(UpdateValueWidth, CtsInstance);
-		ViewModel.Height.Subscribe(UpdateValueHeight, CtsInstance);
-		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
-		_inputFieldX.Subscribe(SetValueX, CtsInstance);
-		_inputFieldY.Subscribe(SetValueY, CtsInstance);
-		_inputFieldWidth.Subscribe(SetValueWidth, CtsInstance);
-		_inputFieldHeight.Subscribe(SetValueHeight, CtsInstance);
+		this.Subscribe(ViewModel.X, UpdateValueX, CtsInstance);
+		this.Subscribe(ViewModel.Y, UpdateValueY, CtsInstance);
+		this.Subscribe(ViewModel.Width, UpdateValueWidth, CtsInstance);
+		this.Subscribe(ViewModel.Height, UpdateValueHeight, CtsInstance);
+		this.Subscribe(ViewModel.Label, UpdateLabel, CtsInstance);
+		this.Subscribe(_inputFieldX, SetValueX, CtsInstance);
+		this.Subscribe(_inputFieldY, SetValueY, CtsInstance);
+		this.Subscribe(_inputFieldWidth, SetValueWidth, CtsInstance);
+		this.Subscribe(_inputFieldHeight, SetValueHeight, CtsInstance);
 	}
 
 	#endregion

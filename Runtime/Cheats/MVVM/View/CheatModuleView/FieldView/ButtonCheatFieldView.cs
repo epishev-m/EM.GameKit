@@ -18,8 +18,8 @@ public sealed class ButtonCheatFieldView : CheatFieldView<ButtonFieldViewModel>
 
 	protected override void OnInitialize()
 	{
-		ViewModel.Label.Subscribe(UpdateLabel, CtsInstance);
-		_button.Subscribe(ViewModel.Execute, CtsInstance);
+		this.Subscribe(ViewModel.Label, UpdateLabel, CtsInstance);
+		this.Subscribe(_button, ViewModel.Execute, CtsInstance);
 	}
 
 	#endregion

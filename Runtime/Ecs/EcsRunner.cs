@@ -1,13 +1,10 @@
 namespace EM.GameKit
 {
 
-using IoC;
 using Leopotam.EcsLite;
 
 public abstract class EcsRunner : IGameLoopObject
 {
-	private readonly IDiContainer _diContainer;
-
 	protected readonly IEcsSystems EcsSystems;
 
 	private bool _isNotPaused;

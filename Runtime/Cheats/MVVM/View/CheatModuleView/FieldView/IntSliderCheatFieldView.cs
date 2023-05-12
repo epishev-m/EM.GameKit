@@ -22,9 +22,9 @@ public sealed class IntSliderCheatFieldView : CheatFieldView<IntSliderFieldViewM
 
 	protected override void OnInitialize()
 	{
-		ViewModel.Value.Subscribe(UpdateValue, CtsInstance);
-		_inputField.Subscribe(SetValue, CtsInstance);
-		_slider.Subscribe(SetValue, CtsInstance);
+		this.Subscribe(ViewModel.Value, UpdateValue, CtsInstance);
+		this.Subscribe(_inputField, SetValue, CtsInstance);
+		this.Subscribe(_slider, SetValue, CtsInstance);
 
 		_label.text = ViewModel.Label;
 		_slider.minValue = ViewModel.MinLimit;
