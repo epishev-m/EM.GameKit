@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public sealed class GdpRegulationView : View<IGdpRegulationViewModel>
 {
 	[Header(nameof(GdpRegulationView))]
+
 	[SerializeField]
 	private Button _licenseButton;
 
