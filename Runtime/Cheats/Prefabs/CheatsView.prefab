@@ -370,6 +370,7 @@ MonoBehaviour:
     _intSliderCheatFieldView: {fileID: 3222591881680986201, guid: a11653c900f3e354a98f051b5c9044bb, type: 3}
     _minMaxSliderCheatFieldView: {fileID: 5363915158247119982, guid: b77200e8a6999bd45b4e0794eafceac2, type: 3}
     _intMinMaxSliderCheatFieldView: {fileID: 2169237171277306400, guid: c58360d4d36e0f54da6ec3a996067e06, type: 3}
+    _stringDropdownFieldView: {fileID: 6159355977221232687, guid: 0ba16e1ead5654a4fa8f9cee657d9e41, type: 3}
     _buttonCheatCheatFieldView: {fileID: 5264797336745320305, guid: 9048f8e48de20c247bc763bbd27020ec, type: 3}
     _button2CheatCheatFieldView: {fileID: 5138412706216721560, guid: cb7994ed619d6d24b88a61eb62748594, type: 3}
     _button3CheatCheatFieldView: {fileID: 940997906474407233, guid: fb97d0c5aa78f0c4fbcf0900548365f1, type: 3}

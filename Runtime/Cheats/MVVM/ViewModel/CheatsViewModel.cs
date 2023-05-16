@@ -170,6 +170,7 @@ public sealed class CheatsViewModel : ICheatsViewModel
 			IntSliderCheatFieldModel model => new IntSliderFieldViewModel(model),
 			MinMaxSliderCheatFieldModel model => new MinMaxSliderFieldViewModel(model),
 			IntMinMaxSliderCheatFieldModel model => new IntMinMaxSliderFieldViewModel(model),
+			StringDropdownCheatFieldModel model => new StringDropdownFieldViewModel(model),
 			ButtonCheatFieldModel model => new ButtonFieldViewModel(model),
 			Button2CheatFieldModel model => new Button2FieldViewModel(model),
 			Button3CheatFieldModel model => new Button3FieldViewModel(model),

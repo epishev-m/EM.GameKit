@@ -43,7 +43,7 @@ public sealed class Button3FieldViewModel : IFieldViewModel
 
 	public IObservableField<string> Label2 => _label2;
 
-	public IObservableField<string> Label3 => _label2;
+	public IObservableField<string> Label3 => _label3;
 
 	public void Execute1()
 	{

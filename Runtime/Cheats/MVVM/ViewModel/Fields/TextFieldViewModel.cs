@@ -44,7 +44,7 @@ public sealed class TextFieldViewModel : IFieldViewModel
 	public void SetValue(string value)
 	{
 		_value.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(value);
+		_model.Value = value;
 	}
 
 	private void OnChangeModel()

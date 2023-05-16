@@ -38,6 +38,7 @@ public sealed class CheatFieldViewFactory
 			IntSliderFieldViewModel => CreateView(_prefabs.IntSliderCheatFieldView, parent),
 			MinMaxSliderFieldViewModel => CreateView(_prefabs.MinMaxSliderCheatFieldView, parent),
 			IntMinMaxSliderFieldViewModel => CreateView(_prefabs.IntMinMaxSliderCheatFieldView, parent),
+			StringDropdownFieldViewModel => CreateView(_prefabs.StringDropdownFieldView, parent),
 			ButtonFieldViewModel => CreateView(_prefabs.ButtonCheatFieldView, parent),
 			Button2FieldViewModel => CreateView(_prefabs.Button2CheatFieldView, parent),
 			Button3FieldViewModel => CreateView(_prefabs.Button3CheatFieldView, parent),

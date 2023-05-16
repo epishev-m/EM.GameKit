@@ -33,6 +33,8 @@ public sealed class CheatTest : ICheat
 
 	private readonly IntMinMaxSliderCheatFieldModel _intMinMaxSliderCheatFieldModel = new("IntMinMaxSlider", 1, 10, 1);
 
+	private readonly StringDropdownCheatFieldModel _stringDropdownCheatFieldModel = new("StringDropdown", new[] {"Uno", "Dos", "Tres"});
+
 	#region ICheat
 
 	public void Registration(ICheatBinder cheatBinder)
@@ -137,6 +139,13 @@ public sealed class CheatTest : ICheat
 			.AddButton("Log Min", () => Debug.Log(_intMinMaxSliderCheatFieldModel.MinValue),
 				"Log Max", () => Debug.Log(_intMinMaxSliderCheatFieldModel.MaxValue));
 
+		cheatBinder.Bind("Cheat StringDropdown")
+			.InGlobal()
+			.SetGroups("Dropdown")
+			.AddInfo("Demonstration StringDropdown!")
+			.AddField(_stringDropdownCheatFieldModel)
+			.AddButton("Log", () => Debug.Log(_stringDropdownCheatFieldModel.CurrentValue));
+		
 		cheatBinder.Bind("Cheat Buttons")
 			.InGlobal()
 			.SetGroups("Buttons")

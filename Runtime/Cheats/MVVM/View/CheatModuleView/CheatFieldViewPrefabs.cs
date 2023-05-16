@@ -51,6 +51,9 @@ public sealed class CheatFieldViewPrefabs
 
 	[SerializeField]
 	private IntMinMaxSliderCheatFieldView _intMinMaxSliderCheatFieldView;
+	
+	[SerializeField]
+	private StringDropdownFieldView _stringDropdownFieldView;
 
 	[SerializeField]
 	private ButtonCheatFieldView _buttonCheatCheatFieldView;
@@ -92,6 +95,8 @@ public sealed class CheatFieldViewPrefabs
 	public MinMaxSliderCheatFieldView MinMaxSliderCheatFieldView => _minMaxSliderCheatFieldView;
 
 	public IntMinMaxSliderCheatFieldView IntMinMaxSliderCheatFieldView => _intMinMaxSliderCheatFieldView;
+
+	public StringDropdownFieldView StringDropdownFieldView => _stringDropdownFieldView;
 
 	public ButtonCheatFieldView ButtonCheatFieldView => _buttonCheatCheatFieldView;
 
