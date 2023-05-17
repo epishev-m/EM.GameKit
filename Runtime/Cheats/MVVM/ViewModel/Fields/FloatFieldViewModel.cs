@@ -44,7 +44,7 @@ public sealed class FloatFieldViewModel : IFieldViewModel
 	public void SetValue(float value)
 	{
 		_value.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(value);
+		_model.Value = value;
 	}
 
 	private void OnChangeModel()

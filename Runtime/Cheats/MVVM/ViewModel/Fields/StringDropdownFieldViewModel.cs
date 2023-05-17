@@ -42,7 +42,8 @@ public class StringDropdownFieldViewModel : IFieldViewModel
 
 	public void SetIndex(int index)
 	{
-		_model.SetIndexWithoutNotify(index);
+		_index.SetValueWithoutNotify(index);
+		_model.Index = index;
 	}
 
 	private void OnChangeModel()

@@ -57,25 +57,25 @@ public sealed class Vector4FieldViewModel : IFieldViewModel
 	public void SetX(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector4(value, _model.Value.y, _model.Value.z, _model.Value.w));
+		_model.Value = new Vector4(value, _model.Value.y, _model.Value.z, _model.Value.w);
 	}
 
 	public void SetY(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector4(_model.Value.x, value, _model.Value.z, _model.Value.w));
+		_model.Value = new Vector4(_model.Value.x, value, _model.Value.z, _model.Value.w);
 	}
 
 	public void SetZ(float value)
 	{
 		_z.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector4(_model.Value.x, _model.Value.y, value, _model.Value.w));
+		_model.Value = new Vector4(_model.Value.x, _model.Value.y, value, _model.Value.w);
 	}
 
 	public void SetW(float value)
 	{
 		_w.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector4(_model.Value.x, _model.Value.y, _model.Value.z, value));
+		_model.Value = new Vector4(_model.Value.x, _model.Value.y, _model.Value.z, value);
 	}
 
 	private void OnChangeModel()

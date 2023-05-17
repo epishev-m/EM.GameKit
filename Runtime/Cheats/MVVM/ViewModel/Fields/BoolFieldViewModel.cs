@@ -44,7 +44,7 @@ public sealed class BoolFieldViewModel : IFieldViewModel
 	public void SetValue(bool value)
 	{
 		_value.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(value);
+		_model.Value = value;
 	}
 
 	private void OnChangeModel()

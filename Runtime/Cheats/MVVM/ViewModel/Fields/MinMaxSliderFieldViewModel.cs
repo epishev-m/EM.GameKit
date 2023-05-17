@@ -52,13 +52,13 @@ public sealed class MinMaxSliderFieldViewModel : IFieldViewModel
 	public void SetMinValue(float value)
 	{
 		_minValue.SetValueWithoutNotify(value);
-		_model.SetMinValueWithoutNotify(value);
+		_model.MinValue = value;
 	}
 
 	public void SetMaxValue(float value)
 	{
 		_maxValue.SetValueWithoutNotify(value);
-		_model.SetMaxValueWithoutNotify(value);
+		_model.MaxValue = value;
 	}
 
 	private void OnChangeModel()

@@ -49,13 +49,13 @@ public sealed class Vector2FieldViewModel : IFieldViewModel
 	public void SetX(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector2(value, _model.Value.y));
+		_model.Value = new Vector2(value, _model.Value.y);
 	}
 
 	public void SetY(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector2(_model.Value.x, value));
+		_model.Value = new Vector2(_model.Value.x, value);
 	}
 
 	private void OnChangeModel()

@@ -44,7 +44,7 @@ public sealed class IntFieldViewModel : IFieldViewModel
 	public void SetValue(int value)
 	{
 		_value.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(value);
+		_model.Value = value;
 	}
 
 	private void OnChangeModel()

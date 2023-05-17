@@ -1,7 +1,6 @@
 namespace EM.GameKit
 {
 
-using System;
 using Foundation;
 
 public sealed class SliderFieldViewModel : IFieldViewModel
@@ -36,7 +35,7 @@ public sealed class SliderFieldViewModel : IFieldViewModel
 		_model = model;
 	}
 
-	public Foundation.IObservableField<float> Value => _value;
+	public IObservableField<float> Value => _value;
 
 	public float MinLimit => _model.MinValue;
 
@@ -47,7 +46,7 @@ public sealed class SliderFieldViewModel : IFieldViewModel
 	public void SetValue(float value)
 	{
 		_value.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(value);
+		_model.Value = value;
 	}
 
 	private void OnChangeModel()

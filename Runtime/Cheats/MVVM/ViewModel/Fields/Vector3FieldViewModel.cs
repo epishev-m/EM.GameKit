@@ -53,19 +53,19 @@ public sealed class Vector3FieldViewModel : IFieldViewModel
 	public void SetX(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector3(value, _model.Value.y, _model.Value.z));
+		_model.Value = new Vector3(value, _model.Value.y, _model.Value.z);
 	}
 
 	public void SetY(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector3(_model.Value.x, value, _model.Value.z));
+		_model.Value = new Vector3(_model.Value.x, value, _model.Value.z);
 	}
 
 	public void SetZ(float value)
 	{
 		_z.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Vector3(_model.Value.x, _model.Value.y, value));
+		_model.Value = new Vector3(_model.Value.x, _model.Value.y, value);
 	}
 
 	private void OnChangeModel()

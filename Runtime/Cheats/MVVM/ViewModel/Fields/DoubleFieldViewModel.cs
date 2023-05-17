@@ -44,7 +44,7 @@ public sealed class DoubleFieldViewModel : IFieldViewModel
 	public void SetValue(double value)
 	{
 		_value.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(value);
+		_model.Value = value;
 	}
 
 	private void OnChangeModel()

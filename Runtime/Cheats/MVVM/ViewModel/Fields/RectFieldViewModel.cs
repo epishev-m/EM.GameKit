@@ -57,25 +57,25 @@ public sealed class RectFieldViewModel : IFieldViewModel
 	public void SetX(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Rect(value, _model.Value.y, _model.Value.width, _model.Value.height));
+		_model.Value = new Rect(value, _model.Value.y, _model.Value.width, _model.Value.height);
 	}
 
 	public void SetY(float value)
 	{
 		_x.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Rect(_model.Value.x, value, _model.Value.width, _model.Value.height));
+		_model.Value = new Rect(_model.Value.x, value, _model.Value.width, _model.Value.height);
 	}
 
 	public void SetWidth(float value)
 	{
 		_width.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Rect(_model.Value.x, _model.Value.y, value, _model.Value.height));
+		_model.Value = new Rect(_model.Value.x, _model.Value.y, value, _model.Value.height);
 	}
 
 	public void SetHeight(float value)
 	{
 		_height.SetValueWithoutNotify(value);
-		_model.SetValueWithoutNotify(new Rect(_model.Value.x, _model.Value.y, _model.Value.width, value));
+		_model.Value = new Rect(_model.Value.x, _model.Value.y, _model.Value.width, value);
 	}
 
 	private void OnChangeModel()
