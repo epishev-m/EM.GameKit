@@ -5,8 +5,6 @@
         "EM.Foundation",
         "UniTask",
         "UniTask.DOTween",
-        "Leopotam.EcsLite",
-        "Leopotam.EcsLite.UnityEditor.Runtime",
         "EM.UI",
         "MessagePack.Annotations",
         "DOTween.Modules",
