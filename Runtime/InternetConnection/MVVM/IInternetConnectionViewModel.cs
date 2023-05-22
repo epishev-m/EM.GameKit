@@ -1,7 +1,9 @@
 ﻿namespace EM.GameKit
 {
 
-public interface IInternetConnectionViewModel
+using UI;
+
+public interface IInternetConnectionViewModel : IViewModel
 {
 	void Restart();
 }

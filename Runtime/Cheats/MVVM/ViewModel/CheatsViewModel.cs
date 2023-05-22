@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Foundation;
+using UI;
 
 public sealed class CheatsViewModel : ICheatsViewModel
 {
@@ -22,6 +23,15 @@ public sealed class CheatsViewModel : ICheatsViewModel
 	private string _filterCheats;
 
 	#region ICheatsViewModel
+	
+	void IViewModel.Initialize()
+	{
+		UpdateAll();
+	}
+
+	void IViewModel.Release()
+	{
+	}
 
 	public IObservableField<IEnumerable<string>> VisibleGroups => _visibleGroups;
 
@@ -32,17 +42,6 @@ public sealed class CheatsViewModel : ICheatsViewModel
 	public IEnumerable<string> Groups => _cheatModel.GetGroups();
 
 	public IEnumerable<string> Names => _cheatModel.GetNames();
-
-	public void UpdateAll()
-	{
-		var groups = _cheatModel.GetGroups().ToArray();
-		var visibleGroups = new List<string>(groups);
-		var enableGroups = new List<string>(groups);
-		var visibleCheats = new List<string>(_cheatModel.GetNames());
-		_visibleGroups.SetValue(visibleGroups);
-		_enableGroups.SetValue(enableGroups);
-		_visibleCheats.SetValue(visibleCheats);
-	}
 
 	public void EnableAllGroups()
 	{
@@ -133,6 +132,17 @@ public sealed class CheatsViewModel : ICheatsViewModel
 	{
 		_cheatModel = cheatModel;
 		_cheatsRouter = cheatsRouter;
+	}
+
+	private void UpdateAll()
+	{
+		var groups = _cheatModel.GetGroups().ToArray();
+		var visibleGroups = new List<string>(groups);
+		var enableGroups = new List<string>(groups);
+		var visibleCheats = new List<string>(_cheatModel.GetNames());
+		_visibleGroups.SetValue(visibleGroups);
+		_enableGroups.SetValue(enableGroups);
+		_visibleCheats.SetValue(visibleCheats);
 	}
 
 	private void ApplyFilterVisibleCheats()

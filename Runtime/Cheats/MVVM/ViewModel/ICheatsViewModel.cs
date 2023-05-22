@@ -3,8 +3,10 @@ namespace EM.GameKit
 
 using System.Collections.Generic;
 using Foundation;
+using UI;
 
-public interface ICheatsViewModel
+
+public interface ICheatsViewModel : IViewModel
 {
 	IObservableField<IEnumerable<string>> VisibleGroups { get; }
 
@@ -15,8 +17,6 @@ public interface ICheatsViewModel
 	IEnumerable<string> Groups { get; }
 
 	IEnumerable<string> Names { get; }
-
-	void UpdateAll();
 
 	void EnableAllGroups();
 

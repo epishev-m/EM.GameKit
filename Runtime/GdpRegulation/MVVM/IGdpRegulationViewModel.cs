@@ -1,7 +1,9 @@
 namespace EM.GameKit
 {
 
-public interface IGdpRegulationViewModel
+using UI;
+
+public interface IGdpRegulationViewModel : IViewModel
 {
 	void Accept();
 

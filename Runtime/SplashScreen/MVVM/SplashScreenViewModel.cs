@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Foundation;
+using UI;
 
 public sealed class SplashScreenViewModel : ISplashScreenViewModel
 {
@@ -20,23 +21,16 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 
 	#region ISplashScreenUiViewModel
 
-	public IObservableFieldAsync<string> CurrentSplashName => _currentSplashName;
-
-	public void Show()
+	void IViewModel.Initialize()
 	{
-		FillSplashNameQueue();
-
-		if (_splashNameQueue.TryDequeue(out var splash))
-		{
-			ShowAsync(splash).Forget();
-			WaitCancelAsync().Forget();
-		}
-		else
-		{
-			ShowAsync(null).Forget();
-			_model.Finish();
-		}
+		Show();
 	}
+
+	void IViewModel.Release()
+	{
+	}
+	
+	public IObservableFieldAsync<string> CurrentSplashName => _currentSplashName;
 
 	public void Skip()
 	{
@@ -57,6 +51,22 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 		_configProvider = configProvider;
 	}
 
+	private void Show()
+	{
+		FillSplashNameQueue();
+
+		if (_splashNameQueue.TryDequeue(out var splash))
+		{
+			ShowAsync(splash).Forget();
+			WaitCancelAsync().Forget();
+		}
+		else
+		{
+			ShowAsync(null).Forget();
+			_model.Finish();
+		}
+	}
+	
 	private void FillSplashNameQueue()
 	{
 		if (_splashNameQueue != null)

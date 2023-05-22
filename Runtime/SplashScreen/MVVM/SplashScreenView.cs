@@ -28,8 +28,6 @@ public sealed class SplashScreenView : View<ISplashScreenViewModel>
 
 		this.Subscribe(ViewModel.CurrentSplashName, ChangeSplashAsync, CtsInstance);
 		this.Subscribe(_skipButton, ViewModel.Skip, CtsInstance);
-
-		ViewModel.Show();
 	}
 
 	#endregion

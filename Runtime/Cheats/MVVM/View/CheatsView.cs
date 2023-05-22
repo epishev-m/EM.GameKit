@@ -39,7 +39,7 @@ public sealed class CheatsView : View<ICheatsViewModel>
 		base.OnInitialize();
 		InitializeModules();
 		Connect();
-		SetInitialState();
+		ShowGroups();
 	}
 
 	protected override void OnRelease()
@@ -67,12 +67,6 @@ public sealed class CheatsView : View<ICheatsViewModel>
 		this.Subscribe(_showGroupsButton, ShowGroups, CtsInstance);
 		this.Subscribe(_hideGroupsButton, HideGroups, CtsInstance);
 		this.Subscribe(_closeButton, ViewModel.Close, CtsInstance);
-	}
-
-	private void SetInitialState()
-	{
-		ViewModel.UpdateAll();
-		ShowGroups();
 	}
 
 	private void ShowGroups()

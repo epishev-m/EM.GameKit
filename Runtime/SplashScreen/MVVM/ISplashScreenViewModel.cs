@@ -2,16 +2,15 @@ namespace EM.GameKit
 {
 
 using Foundation;
+using UI;
 
-public interface ISplashScreenViewModel
+public interface ISplashScreenViewModel : IViewModel
 {
 	IObservableFieldAsync<string> CurrentSplashName
 	{
 		get;
 	}
 
-	void Show();
-	
 	void Skip();
 }
 
