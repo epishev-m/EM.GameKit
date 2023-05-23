@@ -13,11 +13,11 @@ public sealed class GameLoopBinding : Binding,
 	{
 		get;
 		private set;
-	} = LifeTime.External;
+	} = LifeTime.None;
 
 	public IGameLoopBinding InGlobal()
 	{
-		Requires.ValidOperation(LifeTime == LifeTime.External, this);
+		Requires.ValidOperation(LifeTime == LifeTime.None, this);
 
 		LifeTime = LifeTime.Global;
 
@@ -26,7 +26,7 @@ public sealed class GameLoopBinding : Binding,
 
 	public IGameLoopBinding InLocal()
 	{
-		Requires.ValidOperation(LifeTime == LifeTime.External, this);
+		Requires.ValidOperation(LifeTime == LifeTime.None, this);
 
 		LifeTime = LifeTime.Local;
 
@@ -35,7 +35,7 @@ public sealed class GameLoopBinding : Binding,
 
 	public IGameLoopBinding SetLifeTime(LifeTime lifeTime)
 	{
-		Requires.ValidOperation(LifeTime == LifeTime.External, this);
+		Requires.ValidOperation(LifeTime == LifeTime.None, this);
 
 		LifeTime = lifeTime;
 
@@ -49,7 +49,7 @@ public sealed class GameLoopBinding : Binding,
 	public new IGameLoopBinding To<T>()
 		where T : class, IGameLoopObject
 	{
-		Requires.ValidOperation(LifeTime != LifeTime.External, this);
+		Requires.ValidOperation(LifeTime != LifeTime.None, this);
 		Requires.ValidOperation(Values == null, this, nameof(Values));
 
 		return base.To<T>() as IGameLoopBinding;

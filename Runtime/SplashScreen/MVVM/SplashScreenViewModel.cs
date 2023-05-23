@@ -26,10 +26,6 @@ public sealed class SplashScreenViewModel : ISplashScreenViewModel
 		Show();
 	}
 
-	void IViewModel.Release()
-	{
-	}
-	
 	public IObservableFieldAsync<string> CurrentSplashName => _currentSplashName;
 
 	public void Skip()

@@ -7,23 +7,23 @@ using UI;
 
 public sealed class GdpRegulationRouter
 {
-	private readonly IUiSystem _uiSystem;
+	private readonly IPanelSystem _panelSystem;
 
 	#region GdpRegulationRouter
 
-	public GdpRegulationRouter(IUiSystem uiSystem)
+	public GdpRegulationRouter(IPanelSystem panelSystem)
 	{
-		_uiSystem = uiSystem;
+		_panelSystem = panelSystem;
 	}
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _uiSystem.OpenAsync<GdpRegulationView, GdpRegulationViewModel>(Modes.Modal, ct);
+		await _panelSystem.OpenAsync<GdpRegulationView, GdpRegulationViewModel>(Modes.Modal, ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _uiSystem.CloseAsync<GdpRegulationView>(ct);
+		await _panelSystem.CloseAsync<GdpRegulationView>(ct);
 	}
 
 	#endregion

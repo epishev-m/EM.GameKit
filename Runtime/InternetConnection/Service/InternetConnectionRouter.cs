@@ -7,26 +7,26 @@ using UI;
 
 public class InternetConnectionRouter
 {
-	private readonly IUiSystem _uiSystem;
+	private readonly IPanelSystem _panelSystem;
 
 	private bool _isOpened;
 
 	#region InternetConnectionRouter
 
-	public InternetConnectionRouter(IUiSystem uiSystem)
+	public InternetConnectionRouter(IPanelSystem panelSystem)
 	{
-		_uiSystem = uiSystem;
+		_panelSystem = panelSystem;
 	}
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _uiSystem.OpenAsync<InternetConnectionView, InternetConnectionViewModel>(Modes.Modal, ct);
+		await _panelSystem.OpenAsync<InternetConnectionView, InternetConnectionViewModel>(Modes.Modal, ct);
 		_isOpened = true;
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _uiSystem.CloseAsync<InternetConnectionView>(ct);
+		await _panelSystem.CloseAsync<InternetConnectionView>(ct);
 		_isOpened = false;
 	}
 

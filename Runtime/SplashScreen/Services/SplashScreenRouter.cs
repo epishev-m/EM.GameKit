@@ -7,23 +7,23 @@ using UI;
 
 public sealed class SplashScreenRouter
 {
-	private readonly IUiSystem _uiSystem;
+	private readonly IPanelSystem _panelSystem;
 
 	#region SplashScreenRouter
 
-	public SplashScreenRouter(IUiSystem uiSystem)
+	public SplashScreenRouter(IPanelSystem panelSystem)
 	{
-		_uiSystem = uiSystem;
+		_panelSystem = panelSystem;
 	}
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _uiSystem.OpenAsync<SplashScreenView, SplashScreenViewModel>(ct);
+		await _panelSystem.OpenAsync<SplashScreenView, SplashScreenViewModel>(ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _uiSystem.CloseAsync<SplashScreenView>(ct);
+		await _panelSystem.CloseAsync<SplashScreenView>(ct);
 	}
 
 	#endregion

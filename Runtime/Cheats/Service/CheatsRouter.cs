@@ -7,23 +7,23 @@ using UI;
 
 public sealed class CheatsRouter
 {
-	private readonly IUiSystem _uiSystem;
+	private readonly IPanelSystem _panelSystem;
 
 	#region CheatsRouter
 
-	public CheatsRouter(IUiSystem uiSystem)
+	public CheatsRouter(IPanelSystem panelSystem)
 	{
-		_uiSystem = uiSystem;
+		_panelSystem = panelSystem;
 	}
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _uiSystem.OpenAsync<CheatsView, CheatsViewModel>(ct);
+		await _panelSystem.OpenAsync<CheatsView, CheatsViewModel>(ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _uiSystem.CloseAsync<CheatsView>(ct);
+		await _panelSystem.CloseAsync<CheatsView>(ct);
 	}
 
 	#endregion

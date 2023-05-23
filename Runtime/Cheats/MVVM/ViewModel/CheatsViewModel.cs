@@ -29,10 +29,6 @@ public sealed class CheatsViewModel : ICheatsViewModel
 		UpdateAll();
 	}
 
-	void IViewModel.Release()
-	{
-	}
-
 	public IObservableField<IEnumerable<string>> VisibleGroups => _visibleGroups;
 
 	public IObservableField<IEnumerable<string>> EnableGroups => _enableGroups;

@@ -9,17 +9,17 @@ public sealed class GdpRegulationSaver : IStorageSegmentSaver
 
 	#region IStorageSegmentSaver
 
-	IStorageSegment IStorageSegmentSaver.Save()
+	IProfileStorageSegment IStorageSegmentSaver.Save()
 	{
-		return new GdpRegulationStorageSegment
+		return new GdpRegulationProfileStorageSegment
 		{
 			IsAccepted = _gdpRegulationModel.IsAccepted
 		};
 	}
 
-	bool IStorageSegmentSaver.Load(IStorageSegment segment)
+	bool IStorageSegmentSaver.Load(IProfileStorageSegment segment)
 	{
-		if (segment is not GdpRegulationStorageSegment storageSegment)
+		if (segment is not GdpRegulationProfileStorageSegment storageSegment)
 		{
 			return false;
 		}
@@ -46,7 +46,7 @@ public sealed class GdpRegulationSaver : IStorageSegmentSaver
 	#region Nested
 
 	[JsonSerialize("204B987E-5E72-44E8-9378-E9B366E6713A")]
-	private sealed class GdpRegulationStorageSegment : IStorageSegment
+	private sealed class GdpRegulationProfileStorageSegment : IProfileStorageSegment
 	{
 		public bool IsAccepted;
 	}

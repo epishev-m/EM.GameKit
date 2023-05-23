@@ -24,7 +24,7 @@ public sealed class CheatBinding : Binding,
 	ICheatBinding ICheatBinding.AddField<T>(T field)
 		where T : class
 	{
-		Requires.ValidOperation(LifeTime != LifeTime.External, this);
+		Requires.ValidOperation(LifeTime != LifeTime.None, this);
 		Requires.NotNullParam(field, nameof(field));
 
 		return To(field) as ICheatBinding;
@@ -33,7 +33,7 @@ public sealed class CheatBinding : Binding,
 	ICheatBinding ICheatBinding.AddButton(string label,
 		Action action)
 	{
-		Requires.ValidOperation(LifeTime != LifeTime.External, this);
+		Requires.ValidOperation(LifeTime != LifeTime.None, this);
 
 		var buttonItem = new ButtonCheatFieldModel(label, action);
 
@@ -45,7 +45,7 @@ public sealed class CheatBinding : Binding,
 		string label2,
 		Action action2)
 	{
-		Requires.ValidOperation(LifeTime != LifeTime.External, this);
+		Requires.ValidOperation(LifeTime != LifeTime.None, this);
 
 		var buttonItem = new Button2CheatFieldModel(label, action, label2, action2);
 
@@ -60,7 +60,7 @@ public sealed class CheatBinding : Binding,
 		Action action3)
 	{
 		
-		Requires.ValidOperation(LifeTime != LifeTime.External, this);
+		Requires.ValidOperation(LifeTime != LifeTime.None, this);
 
 		var buttonItem = new Button3CheatFieldModel(label, action, label2, action2, label3, action3);
 
@@ -75,7 +75,7 @@ public sealed class CheatBinding : Binding,
 
 	ICheatBinding ICheatBindingGroup.SetGroups(params string[] groups)
 	{
-		Requires.ValidOperation(LifeTime != LifeTime.External, this);
+		Requires.ValidOperation(LifeTime != LifeTime.None, this);
 		Requires.ValidOperation(Groups == null, this);
 		Requires.NotNullParam(groups, nameof(groups));
 
@@ -88,11 +88,11 @@ public sealed class CheatBinding : Binding,
 
 	#region ICheatBindingLifeTime
 
-	public LifeTime LifeTime { get; private set; } = LifeTime.External;
+	public LifeTime LifeTime { get; private set; } = LifeTime.None;
 
 	ICheatBindingGroup ICheatBindingLifeTime.InGlobal()
 	{
-		Requires.ValidOperation(LifeTime == LifeTime.External, this);
+		Requires.ValidOperation(LifeTime == LifeTime.None, this);
 
 		LifeTime = LifeTime.Global;
 
@@ -101,7 +101,7 @@ public sealed class CheatBinding : Binding,
 
 	ICheatBindingGroup ICheatBindingLifeTime.InLocal()
 	{
-		Requires.ValidOperation(LifeTime == LifeTime.External, this);
+		Requires.ValidOperation(LifeTime == LifeTime.None, this);
 
 		LifeTime = LifeTime.Local;
 

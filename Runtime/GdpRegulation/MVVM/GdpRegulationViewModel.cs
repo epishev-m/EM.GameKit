@@ -1,7 +1,6 @@
 namespace EM.GameKit
 {
-	
-using UI;
+
 using UnityEngine;
 
 public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
@@ -11,14 +10,6 @@ public sealed class GdpRegulationViewModel : IGdpRegulationViewModel
 	private readonly IGdpRegulationConfigProvider _configsProvider;
 
 	#region IGdpRegulationViewModel
-	
-	void IViewModel.Initialize()
-	{
-	}
-
-	void IViewModel.Release()
-	{
-	}
 
 	public void Accept()
 	{
