@@ -12,7 +12,10 @@
         "EM.BuildSystem",
         "EM.Assistant",
         "UniTask.TextMeshPro",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Unity.ResourceManager",
+        "Unity.Addressables",
+        "UniTask.Addressables"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
