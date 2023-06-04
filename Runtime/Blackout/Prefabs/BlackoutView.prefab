@@ -228,3 +228,4 @@ MonoBehaviour:
   _canvas: {fileID: 4080462655894789651}
   _canvasGroup: {fileID: 4080462655894789650}
   _button: {fileID: 1631638877149780032}
+  _fadeValue: 0.9
