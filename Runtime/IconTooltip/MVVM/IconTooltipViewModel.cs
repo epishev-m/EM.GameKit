@@ -2,12 +2,13 @@
 {
 
 using UnityEngine;
+using Configs;
 
 public sealed class IconTooltipViewModel : BaseIconTooltipViewModel
 {
 	public override IconTooltipLayouts Layouts => Data.Layout;
 	
-	public override string Icon => Data.Icon;
+	public override SpriteAtlasDefinition Icon => Data.Icon;
 
 	public override string Title => Data.Title;
 

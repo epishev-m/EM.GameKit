@@ -1,4 +1,6 @@
-﻿namespace EM.GameKit
+﻿using EM.Configs;
+
+namespace EM.GameKit
 {
 
 using UI;
@@ -8,7 +10,7 @@ public abstract class BaseIconTooltipViewModel : ViewModel<IIconTooltipDataProvi
 {
 	public abstract IconTooltipLayouts Layouts { get; }
 
-	public abstract string Icon { get; }
+	public abstract SpriteAtlasDefinition Icon { get; }
 
 	public abstract string Title { get; }
 

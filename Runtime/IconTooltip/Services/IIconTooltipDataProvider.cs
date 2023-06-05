@@ -2,12 +2,13 @@ namespace EM.GameKit
 {
 
 using UnityEngine;
+using Configs;
 
 public interface IIconTooltipDataProvider
 {
 	IconTooltipLayouts Layout { get; }
 	
-	string Icon { get; }
+	SpriteAtlasDefinition Icon { get; }
 
 	string Title { get; }
 

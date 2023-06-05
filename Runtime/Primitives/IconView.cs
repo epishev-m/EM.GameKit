@@ -5,12 +5,10 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.U2D;
+using Configs;
 
 public sealed class IconView : MonoBehaviour
 {
-	[SerializeField]
-	private AssetReference _assetReference;
-
 	[SerializeField]
 	private ImageView _image;
 
@@ -56,10 +54,10 @@ public sealed class IconView : MonoBehaviour
 		set => _image.CoverColor = value;
 	}
 
-	public async UniTask SetImageAsync(string image)
+	public async UniTask SetImageAsync(SpriteAtlasDefinition spriteAtlasDefinition)
 	{
-		await LoadSpriteAtlas();
-		var sprite = _spriteAtlas.GetSprite(image);
+		await LoadSpriteAtlas(spriteAtlasDefinition.Atlas);
+		var sprite = _spriteAtlas.GetSprite(spriteAtlasDefinition.Sprite);
 		_image.SetSprite(sprite);
 		_image.enabled = true;
 	}
@@ -75,11 +73,15 @@ public sealed class IconView : MonoBehaviour
 	public void CleanUp()
 	{
 		_image.CleanUp();
-		_spriteAtlas = null;
-		_assetReference.ReleaseAsset();
+
+		if (_spriteAtlas != null)
+		{
+			Addressables.Release(_spriteAtlas);
+			_spriteAtlas = null;
+		}
 	}
 
-	private async UniTask LoadSpriteAtlas()
+	private async UniTask LoadSpriteAtlas(string key)
 	{
 		if (_spriteAtlas != null)
 		{
@@ -87,7 +89,7 @@ public sealed class IconView : MonoBehaviour
 		}
 
 		_preloaderView.Show();
-		_spriteAtlas = await _assetReference.LoadAssetAsync<SpriteAtlas>().ToUniTask();
+		_spriteAtlas = await Addressables.LoadAssetAsync<SpriteAtlas>(key).ToUniTask();
 		_preloaderView.Hide();
 	}
 
