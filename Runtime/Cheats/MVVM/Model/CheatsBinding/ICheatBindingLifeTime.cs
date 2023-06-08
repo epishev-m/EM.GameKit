@@ -10,6 +10,8 @@ public interface ICheatBindingLifeTime
 	ICheatBindingGroup InGlobal();
 
 	ICheatBindingGroup InLocal();
+
+	ICheatBindingGroup SetLifeTime(LifeTime lifeTime);
 }
 
 }

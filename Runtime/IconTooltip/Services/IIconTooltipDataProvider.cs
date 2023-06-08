@@ -7,7 +7,7 @@ using Configs;
 public interface IIconTooltipDataProvider
 {
 	IconTooltipLayouts Layout { get; }
-	
+
 	SpriteAtlasDefinition Icon { get; }
 
 	string Title { get; }

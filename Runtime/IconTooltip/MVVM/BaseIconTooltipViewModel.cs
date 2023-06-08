@@ -1,8 +1,7 @@
-﻿using EM.Configs;
-
-namespace EM.GameKit
+﻿namespace EM.GameKit
 {
 
+using Configs;
 using UI;
 using UnityEngine;
 

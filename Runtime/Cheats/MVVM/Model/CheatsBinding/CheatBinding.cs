@@ -108,6 +108,15 @@ public sealed class CheatBinding : Binding,
 		return this;
 	}
 
+	ICheatBindingGroup ICheatBindingLifeTime.SetLifeTime(LifeTime lifeTime)
+	{
+		Requires.ValidOperation(LifeTime == LifeTime.None, this);
+
+		LifeTime = lifeTime;
+
+		return this;
+	}
+
 	#endregion
 
 	#region Binding

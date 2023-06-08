@@ -43,11 +43,11 @@ public sealed class Cheats : IDisposable
 #endif
 	}
 
-	public Cheats Add<T>()
+	public Cheats Add<T>(LifeTime lifeTime)
 		where T : class, ICheat
 	{
 		var cheat = _cheatFactory.Get<T>();
-		cheat.Registration(_cheatBinder);
+		cheat.Registration(_cheatBinder, lifeTime);
 
 		return this;
 	}

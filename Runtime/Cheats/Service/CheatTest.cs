@@ -1,6 +1,7 @@
 namespace EM.GameKit
 {
 
+using Foundation;
 using UnityEngine;
 
 public sealed class CheatTest : ICheat
@@ -37,7 +38,8 @@ public sealed class CheatTest : ICheat
 
 	#region ICheat
 
-	public void Registration(ICheatBinder cheatBinder)
+	public void Registration(ICheatBinder cheatBinder,
+		LifeTime lifeTime)
 	{
 		cheatBinder.Bind("Cheat Bool")
 			.InGlobal()
