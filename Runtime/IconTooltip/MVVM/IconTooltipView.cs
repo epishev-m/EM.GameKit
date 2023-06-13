@@ -59,7 +59,7 @@ public sealed class IconTooltipView : View<BaseIconTooltipViewModel>
 	
 	private void SetIcon()
 	{
-		_icon.SetImageAsync(ViewModel.Icon).Forget();
+		_icon.SetImageAsync(ViewModel.Icon, CtsInstance.Token).Forget();
 		_icon.SetSize(ViewModel.Size);
 		_icon.transform.position = new Vector3(ViewModel.Position.x, ViewModel.Position.y);
 	}

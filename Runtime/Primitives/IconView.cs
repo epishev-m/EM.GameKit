@@ -1,6 +1,7 @@
 ﻿namespace EM.GameKit
 {
 
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -54,8 +55,14 @@ public sealed class IconView : MonoBehaviour
 		set => _image.CoverColor = value;
 	}
 
-	public async UniTask SetImageAsync(SpriteAtlasDefinition spriteAtlasDefinition)
+	public async UniTask SetImageAsync(SpriteAtlasDefinition spriteAtlasDefinition,
+		CancellationToken ct)
 	{
+		if (ct.IsCancellationRequested)
+		{
+			return;
+		}
+
 		await LoadSpriteAtlas(spriteAtlasDefinition.Atlas);
 		var sprite = _spriteAtlas.GetSprite(spriteAtlasDefinition.Sprite);
 		_image.SetSprite(sprite);

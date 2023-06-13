@@ -20,6 +20,11 @@ public sealed class Registers : IRegisters
 	public void SetRegister(string key,
 		long value)
 	{
+		if (value < 0)
+		{
+			value = 0;
+		}
+
 		_registers[key] = value;
 		OnChanged?.Invoke(key, value);
 	}
