@@ -1,9 +1,11 @@
 ﻿namespace EM.GameKit
 {
 
+using Foundation;
+
 public interface ICheatFactory
 {
-	ICheat Get<TCheat>()
+	Result<ICheat> Get<TCheat>()
 		where TCheat : class, ICheat;
 }
 

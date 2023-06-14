@@ -46,8 +46,14 @@ public sealed class Cheats : IDisposable
 	public Cheats Add<T>(LifeTime lifeTime)
 		where T : class, ICheat
 	{
-		var cheat = _cheatFactory.Get<T>();
-		cheat.Registration(_cheatBinder, lifeTime);
+		var result = _cheatFactory.Get<T>();
+
+		if (result.Failure)
+		{
+			return this;
+		}
+
+		result.Data.Registration(_cheatBinder, lifeTime);
 
 		return this;
 	}
