@@ -9,7 +9,7 @@ public abstract class BaseIconTooltipViewModel : ViewModel<IIconTooltipDataProvi
 {
 	public abstract IconTooltipLayouts Layouts { get; }
 
-	public abstract SpriteAtlasDefinition Icon { get; }
+	public abstract ISpriteAtlas Icon { get; }
 
 	public abstract string Title { get; }
 

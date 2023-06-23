@@ -8,7 +8,7 @@ public interface IIconTooltipDataProvider
 {
 	IconTooltipLayouts Layout { get; }
 
-	SpriteAtlasDefinition Icon { get; }
+	ISpriteAtlas Icon { get; }
 
 	string Title { get; }
 

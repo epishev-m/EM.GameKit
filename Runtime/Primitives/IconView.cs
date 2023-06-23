@@ -55,7 +55,7 @@ public sealed class IconView : MonoBehaviour
 		set => _image.CoverColor = value;
 	}
 
-	public async UniTask SetImageAsync(SpriteAtlasDefinition spriteAtlasDefinition,
+	public async UniTask SetImageAsync(ISpriteAtlas spriteAtlas,
 		CancellationToken ct)
 	{
 		if (ct.IsCancellationRequested)
@@ -63,8 +63,8 @@ public sealed class IconView : MonoBehaviour
 			return;
 		}
 
-		await LoadSpriteAtlas(spriteAtlasDefinition.Atlas);
-		var sprite = _spriteAtlas.GetSprite(spriteAtlasDefinition.Sprite);
+		await LoadSpriteAtlas(spriteAtlas.Atlas);
+		var sprite = _spriteAtlas.GetSprite(spriteAtlas.Sprite);
 		_image.SetSprite(sprite);
 		_image.enabled = true;
 	}
