@@ -12,6 +12,18 @@ public sealed class Registers : IRegisters
 
 	#region IRegisters
 
+	public IReadOnlyDictionary<string, long> GetAll() => _registers;
+
+	public void Update(IReadOnlyDictionary<string, long> data)
+	{
+		_registers.Clear();
+
+		foreach (var pair in data)
+		{
+			_registers.Add(pair.Key, pair.Value);
+		}
+	}
+
 	public long GetRegister(string key)
 	{
 		return _registers.TryGetValue(key, out var val) ? val : 0;
