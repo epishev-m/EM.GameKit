@@ -4,7 +4,7 @@ namespace EM.GameKit
 using UnityEngine;
 using Configs;
 
-public interface IIconTooltipDataProvider
+public interface IIconTooltipData
 {
 	IconTooltipLayouts Layout { get; }
 

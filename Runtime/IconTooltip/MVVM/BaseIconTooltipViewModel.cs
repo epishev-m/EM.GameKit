@@ -5,7 +5,7 @@ using Configs;
 using UI;
 using UnityEngine;
 
-public abstract class BaseIconTooltipViewModel : ViewModel<IIconTooltipDataProvider>
+public abstract class BaseIconTooltipViewModel : ViewModel<IIconTooltipData>
 {
 	public abstract IconTooltipLayouts Layouts { get; }
 
