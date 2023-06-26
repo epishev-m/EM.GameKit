@@ -2,19 +2,23 @@
 {
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Foundation;
 
-public sealed class Storage
+public sealed class Storage : IStorage
 {
 	private readonly Dictionary<(string, string), object> _models = new();
 
 	private readonly Dictionary<ValueTuple<string, string>, ObservableField<long>> _items = new();
 
-	#region Storage
+	#region IStorage
 
-	public IReadOnlyDictionary<(string, string), object> Models => _models;
-
+	public IReadOnlyDictionary<ValueTuple<string, string>, long> GetAll()
+	{
+		return _items.ToDictionary(keyValuePair => keyValuePair.Key, keyValuePair => keyValuePair.Value.Value);
+	}
+	
 	public void Update(string catalog,
 		string itemName,
 		long count)
@@ -54,6 +58,10 @@ public sealed class Storage
 		var storageEntry = Get(data);
 		storageEntry.SetAmount(storageEntry.Amount - amount);
 	}
+
+	#endregion
+
+	#region Storage
 
 	private ObservableField<long> GetItem(ValueTuple<string, string> key)
 	{
