@@ -106,19 +106,20 @@ public sealed class IconTooltipView : View<BaseIconTooltipViewModel>
 
 	private void StartShowAnimation()
 	{
-		_icon.transform.DOPunchScale(Vector3.one, 0.7f, 8, 0);
+		_icon.transform.DOPunchScale(Vector3.one, 0.7f, 8, 0).ToUniTask(cancellationToken: CtsInstance.Token);
 		_icon.CoverColor = Color.white;
 		_icon.CoverAmount = 0;
 		DOTween.To(value => _icon.CoverAmount = value, _icon.CoverAmount, 1f, 0.1f)
-			.SetLoops(2, LoopType.Yoyo);
+			.SetLoops(2, LoopType.Yoyo)
+			.ToUniTask(cancellationToken: CtsInstance.Token);;
 
 		var offset = IsUpperHalfScreen ? -_substrateAnimationOffset : _substrateAnimationOffset;
 		var position = _substrate.position;
 		_substrate.position = new Vector3(position.x, position.y + offset);
-		_substrate.DOMoveY(position.y, 0.5f);
+		_substrate.DOMoveY(position.y, 0.5f).ToUniTask(cancellationToken: CtsInstance.Token);
 
 		_substrateCanvasGroup.alpha = 0;
-		_substrateCanvasGroup.DOFade(1, 0.4f);
+		_substrateCanvasGroup.DOFade(1, 0.4f).ToUniTask(cancellationToken: CtsInstance.Token);
 	}
 
 	private bool IsUpperHalfScreen
