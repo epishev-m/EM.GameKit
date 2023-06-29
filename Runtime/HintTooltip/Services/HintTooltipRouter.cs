@@ -19,6 +19,11 @@ public sealed class HintTooltipRouter
 	public async UniTask OpenAsync(string message,
 		CancellationToken ct)
 	{
+		if (_panelSystem.IsOpened<HintTooltipView>())
+		{
+			return;
+		}
+		
 		var data = new HintTooltipData
 		{
 			Message = message

@@ -108,7 +108,9 @@ MonoBehaviour:
   _container: {fileID: 4825513992744636240}
   _text: {fileID: 1117962972086731659}
   _offset: 120
-  _duration: 2
+  _showDuration: 0.5
+  _hideDuration: 1
+  _duration: 0.5
 --- !u!1 &5865059654094569090
 GameObject:
   m_ObjectHideFlags: 0
