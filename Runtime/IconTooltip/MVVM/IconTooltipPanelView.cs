@@ -10,10 +10,10 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ViewAsset(nameof(IconTooltipView), LifeTime.Local)]
-public sealed class IconTooltipView : View<BaseIconTooltipViewModel>
+[ViewAsset(nameof(IconTooltipPanelView), LifeTime.Local)]
+public sealed class IconTooltipPanelView : PanelView<BaseIconTooltipViewModel>
 {
-	[Header(nameof(IconTooltipView))]
+	[Header(nameof(IconTooltipPanelView))]
 
 	[SerializeField]
 	private IconView _icon;
@@ -56,12 +56,12 @@ public sealed class IconTooltipView : View<BaseIconTooltipViewModel>
 	#endregion
 
 	#region CurrencyTooltipView
-	
+
 	private void SetIcon()
 	{
 		_icon.SetImageAsync(ViewModel.Icon, CtsInstance.Token).Forget();
 		_icon.SetSize(ViewModel.Size);
-		_icon.transform.position = new Vector3(ViewModel.Position.x, ViewModel.Position.y);
+		_icon.transform.position = ViewModel.Position;
 	}
 
 	private void SetContent()
@@ -111,7 +111,7 @@ public sealed class IconTooltipView : View<BaseIconTooltipViewModel>
 		_icon.CoverAmount = 0;
 		DOTween.To(value => _icon.CoverAmount = value, _icon.CoverAmount, 1f, 0.1f)
 			.SetLoops(2, LoopType.Yoyo)
-			.ToUniTask(cancellationToken: CtsInstance.Token);;
+			.ToUniTask(cancellationToken: CtsInstance.Token);
 
 		var offset = IsUpperHalfScreen ? -_substrateAnimationOffset : _substrateAnimationOffset;
 		var position = _substrate.position;

@@ -18,12 +18,12 @@ public sealed class CheatsRouter
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _panelSystem.OpenAsync<CheatsView, CheatsViewModel>(ct);
+		await _panelSystem.OpenAsync<CheatsPanelView, CheatsViewModel>(ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<CheatsView>(ct);
+		await _panelSystem.CloseAsync<CheatsPanelView>(ct);
 	}
 
 	#endregion

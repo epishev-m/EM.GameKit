@@ -19,7 +19,7 @@ public sealed class HintTooltipRouter
 	public async UniTask OpenAsync(string message,
 		CancellationToken ct)
 	{
-		if (_panelSystem.IsOpened<HintTooltipView>())
+		if (_panelSystem.IsOpened<HintTooltipPanelView>())
 		{
 			return;
 		}
@@ -29,12 +29,12 @@ public sealed class HintTooltipRouter
 			Message = message
 		};
 
-		await _panelSystem.OpenAsync<HintTooltipView, HintTooltipViewModel, IHintTooltipData>(data, ct);
+		await _panelSystem.OpenAsync<HintTooltipPanelView, HintTooltipViewModel, IHintTooltipData>(data, ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<HintTooltipView>(ct);
+		await _panelSystem.CloseAsync<HintTooltipPanelView>(ct);
 	}
 
 	#endregion

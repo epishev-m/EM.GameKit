@@ -6,10 +6,10 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ViewAsset(nameof(GdpRegulationView), LifeTime.Local)]
-public sealed class GdpRegulationView : View<IGdpRegulationViewModel>
+[ViewAsset(nameof(GdpRegulationPanelView), LifeTime.Local)]
+public sealed class GdpRegulationPanelView : PanelView<IGdpRegulationViewModel>
 {
-	[Header(nameof(GdpRegulationView))]
+	[Header(nameof(GdpRegulationPanelView))]
 
 	[SerializeField]
 	private Button _licenseButton;

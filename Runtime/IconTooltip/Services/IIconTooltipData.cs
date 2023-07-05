@@ -16,7 +16,7 @@ public interface IIconTooltipData
 
 	Vector2 Size { get; }
 
-	Vector2 Position { get; }
+	Vector3 Position { get; }
 }
 
 }

@@ -20,13 +20,13 @@ public class InternetConnectionRouter
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _panelSystem.OpenAsync<InternetConnectionView, InternetConnectionViewModel>(Modes.Modal, ct);
+		await _panelSystem.OpenAsync<InternetConnectionPanelView, InternetConnectionViewModel>(Modes.Modal, ct);
 		_isOpened = true;
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<InternetConnectionView>(ct);
+		await _panelSystem.CloseAsync<InternetConnectionPanelView>(ct);
 		_isOpened = false;
 	}
 

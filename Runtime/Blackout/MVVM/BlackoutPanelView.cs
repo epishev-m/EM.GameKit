@@ -1,24 +1,24 @@
 ﻿namespace EM.GameKit
 {
-	
+
 using Foundation;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ViewAsset(nameof(BlackoutView), LifeTime.Local)]
-public sealed class BlackoutView : View<IBlackoutViewModel>
+[ViewAsset(nameof(BlackoutPanelView), LifeTime.Local)]
+public sealed class BlackoutPanelView : PanelView<IBlackoutViewModel>
 {
-	[Header(nameof(BlackoutView))]
+	[Header(nameof(BlackoutPanelView))]
 
 	[SerializeField]
 	private Button _button;
 
 	#region View
 
-	protected override void OnInitialize()
+	protected override void OnSettingViewModel()
 	{
-		base.OnInitialize();
+		base.OnSettingViewModel();
 		this.Subscribe(_button, ViewModel.Click, CtsInstance);
 	}
 

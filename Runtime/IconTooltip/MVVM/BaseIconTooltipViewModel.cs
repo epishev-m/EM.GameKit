@@ -15,7 +15,7 @@ public abstract class BaseIconTooltipViewModel : ViewModel<IIconTooltipData>
 
 	public abstract string Description { get; }
 
-	public abstract Vector2 Position { get; }
+	public abstract Vector3 Position { get; }
 
 	public abstract Vector2 Size { get; }
 }

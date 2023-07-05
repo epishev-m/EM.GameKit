@@ -18,12 +18,12 @@ public sealed class GdpRegulationRouter
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _panelSystem.OpenAsync<GdpRegulationView, GdpRegulationViewModel>(Modes.Modal, ct);
+		await _panelSystem.OpenAsync<GdpRegulationPanelView, GdpRegulationViewModel>(Modes.Modal, ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<GdpRegulationView>(ct);
+		await _panelSystem.CloseAsync<GdpRegulationPanelView>(ct);
 	}
 
 	#endregion

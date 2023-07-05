@@ -18,12 +18,12 @@ public sealed class BlackoutRouter
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _panelSystem.OpenAsync<BlackoutView, BlackoutViewModel>(Modes.Modal, ct);
+		await _panelSystem.OpenAsync<BlackoutPanelView, BlackoutViewModel>(Modes.Modal, ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<BlackoutView>(ct);
+		await _panelSystem.CloseAsync<BlackoutPanelView>(ct);
 	}
 
 	#endregion

@@ -9,8 +9,8 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ViewAsset(nameof(SplashScreenView), LifeTime.Local)]
-public sealed class SplashScreenView : View<ISplashScreenViewModel>
+[ViewAsset(nameof(SplashScreenPanelView), LifeTime.Local)]
+public sealed class SplashScreenPanelView : PanelView<ISplashScreenViewModel>
 {
 	[SerializeField]
 	private Button _skipButton;

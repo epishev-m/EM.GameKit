@@ -18,12 +18,12 @@ public sealed class SplashScreenRouter
 
 	public async UniTask OpenAsync(CancellationToken ct)
 	{
-		await _panelSystem.OpenAsync<SplashScreenView, SplashScreenViewModel>(ct);
+		await _panelSystem.OpenAsync<SplashScreenPanelView, SplashScreenViewModel>(ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<SplashScreenView>(ct);
+		await _panelSystem.CloseAsync<SplashScreenPanelView>(ct);
 	}
 
 	#endregion

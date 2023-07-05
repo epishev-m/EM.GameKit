@@ -8,10 +8,10 @@ using TMPro;
 using Foundation;
 using UI;
 
-[ViewAsset(nameof(HintTooltipView), LifeTime.Local)]
-public sealed class HintTooltipView : View<BaseHintTooltipViewModel>
+[ViewAsset(nameof(HintTooltipPanelView), LifeTime.Local)]
+public sealed class HintTooltipPanelView : PanelView<BaseHintTooltipViewModel>
 {
-	[Header(nameof(HintTooltipView))]
+	[Header(nameof(HintTooltipPanelView))]
 
 	[SerializeField]
 	private CanvasGroup _container;

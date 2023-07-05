@@ -19,12 +19,12 @@ public sealed class IconTooltipRouter
 	public async UniTask OpenAsync(IIconTooltipData data,
 		CancellationToken ct)
 	{
-		await _panelSystem.OpenAsync<IconTooltipView, IconTooltipViewModel, IIconTooltipData>(data, ct);
+		await _panelSystem.OpenAsync<IconTooltipPanelView, IconTooltipViewModel, IIconTooltipData>(data, ct);
 	}
 
 	public async UniTask CloseAsync(CancellationToken ct)
 	{
-		await _panelSystem.CloseAsync<IconTooltipView>(ct);
+		await _panelSystem.CloseAsync<IconTooltipPanelView>(ct);
 	}
 
 	#endregion

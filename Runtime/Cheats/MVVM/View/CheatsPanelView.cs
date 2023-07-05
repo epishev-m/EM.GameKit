@@ -6,10 +6,10 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ViewAsset(nameof(CheatsView), LifeTime.Local)]
-public sealed class CheatsView : View<ICheatsViewModel>
+[ViewAsset(nameof(CheatsPanelView), LifeTime.Local)]
+public sealed class CheatsPanelView : PanelView<ICheatsViewModel>
 {
-	[Header(nameof(CheatsView))]
+	[Header(nameof(CheatsPanelView))]
 
 	[SerializeField]
 	private float _groupsWidth;

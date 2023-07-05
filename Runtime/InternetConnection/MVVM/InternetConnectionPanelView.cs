@@ -6,10 +6,10 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ViewAsset(nameof(InternetConnectionView), LifeTime.Local)]
-public sealed class InternetConnectionView : View<IInternetConnectionViewModel>
+[ViewAsset(nameof(InternetConnectionPanelView), LifeTime.Local)]
+public sealed class InternetConnectionPanelView : PanelView<IInternetConnectionViewModel>
 {
-	[Header(nameof(InternetConnectionView))]
+	[Header(nameof(InternetConnectionPanelView))]
 
 	[SerializeField]
 	private Button _restartButton;
