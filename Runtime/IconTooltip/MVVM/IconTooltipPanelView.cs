@@ -129,8 +129,8 @@ public sealed class IconTooltipPanelView : PanelView<BaseIconTooltipViewModel>
 			return ViewModel.Layouts switch
 			{
 				IconTooltipLayouts.Auto => ViewModel.Position.y > Screen.height / 2f,
-				IconTooltipLayouts.Above => true,
-				IconTooltipLayouts.Below => false,
+				IconTooltipLayouts.Above => false,
+				IconTooltipLayouts.Below => true,
 				_ => throw new ArgumentOutOfRangeException()
 			};
 		}
