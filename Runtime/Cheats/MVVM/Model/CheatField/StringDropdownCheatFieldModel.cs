@@ -12,7 +12,7 @@ public sealed class StringDropdownCheatFieldModel : ICheatFieldModel
 	private readonly List<string> _options;
 
 	private int _index;
-	
+
 	public event Action OnChanged;
 
 	#region StringDropdownCheatFieldModel
