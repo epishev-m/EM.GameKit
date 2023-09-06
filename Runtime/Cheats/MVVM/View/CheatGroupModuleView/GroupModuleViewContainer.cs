@@ -31,7 +31,7 @@ public sealed class GroupModuleViewContainer : MonoBehaviour
 
 	private readonly List<GroupModuleView> _groupViews = new();
 
-	private readonly CancellationTokenSource _ctxInstance = new();
+	private CancellationTokenSource _ctxInstance;
 
 	private GroupModuleViewPool _groupModuleViewPool;
 
@@ -54,6 +54,7 @@ public sealed class GroupModuleViewContainer : MonoBehaviour
 		Requires.NotNullParam(viewModel, nameof(viewModel));
 
 		_viewModel = viewModel;
+		_ctxInstance = new CancellationTokenSource();
 
 		this.Subscribe(_enableAllButton, _viewModel.EnableAllGroups, _ctxInstance);
 		this.Subscribe(_disableAllButton, _viewModel.DisableAllGroups, _ctxInstance);

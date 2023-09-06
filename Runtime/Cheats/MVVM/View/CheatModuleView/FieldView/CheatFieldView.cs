@@ -13,7 +13,7 @@ public abstract class CheatFieldView<T> : MonoBehaviour,
 {
 	private IFieldViewModel _viewModel;
 
-	protected readonly CancellationTokenSource CtsInstance = new();
+	protected CancellationTokenSource CtsInstance;
 
 	#region ICheatFieldView
 
@@ -21,6 +21,7 @@ public abstract class CheatFieldView<T> : MonoBehaviour,
 	{
 		Requires.NotNullParam(viewModel, nameof(viewModel));
 
+		CtsInstance = new CancellationTokenSource();
 		_viewModel = viewModel;
 		_viewModel?.Initialize();
 		OnInitialize();
