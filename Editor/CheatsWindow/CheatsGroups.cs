@@ -13,8 +13,6 @@ public sealed class CheatsGroups : VisualElement
 {
 	private readonly IEnumerable<string> _groups;
 
-	private ScrollView _scrollView;
-	
 	private Foldout _foldout;
 
 	private VisualElement _buttonsPanel;
@@ -51,7 +49,6 @@ public sealed class CheatsGroups : VisualElement
 		CreateFoldout();
 		CreateButtons();
 		CreateToolbarSearch();
-		CreateScrollView();
 		CreateGroups();
 	}
 
@@ -60,14 +57,7 @@ public sealed class CheatsGroups : VisualElement
 		Add(_foldout
 			.AddChild(_buttonsPanel)
 			.AddChild(_searchPanel)
-			.AddChild(_scrollView
-				.AddChild(_groupsPanel)));
-	}
-
-	private void CreateScrollView()
-	{
-		_scrollView = new ScrollView()
-			.SetStyleMargin(5);
+			.AddChild(_groupsPanel));
 	}
 
 	private void CreateFoldout()
@@ -124,7 +114,7 @@ public sealed class CheatsGroups : VisualElement
 			{
 				value = true
 			};
-			toggle.AddValueChangedCallback<Toggle, bool>(value => OnToggleValueChanged(toggle.label, value));
+			toggle.AddValueChangedCallback<Toggle, bool>(_ => OnChanged?.Invoke());
 			_groupsPanel.Add(toggle);
 			_togglesGroups.Add(group, toggle);
 		}
@@ -168,12 +158,6 @@ public sealed class CheatsGroups : VisualElement
 		{
 			_groupsPanel.Add(group.Value);
 		}
-	}
-
-	private void OnToggleValueChanged(string label,
-		bool value)
-	{
-		OnChanged?.Invoke();
 	}
 
 	#endregion

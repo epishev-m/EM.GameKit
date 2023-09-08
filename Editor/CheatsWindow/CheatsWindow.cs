@@ -29,8 +29,6 @@ public sealed class CheatsWindow : EditorWindow
 
 	private VisualElement _searchPanel;
 
-	private ScrollView _scrollView;
-
 	#region EditorWindow
 
 	private void CreateGUI()
@@ -47,6 +45,7 @@ public sealed class CheatsWindow : EditorWindow
 
 	private void Initialize()
 	{
+		CreateRoot();
 		CreateHelpBox();
 
 		if (Cheats.CheatsModel == null)
@@ -56,16 +55,12 @@ public sealed class CheatsWindow : EditorWindow
 
 		CreateButtons();
 		CreateToolbarSearch();
-		CreateScrollView();
 		CreateCheatsGroups();
 		CreateComponents();
 	}
 
 	private void Compose()
 	{
-		_root = new VisualElement()
-			.SetStylePadding(10);
-
 		if (!Application.isPlaying)
 		{
 			_root.Add(_playmodeHelpBox);
@@ -76,14 +71,19 @@ public sealed class CheatsWindow : EditorWindow
 		}
 		else
 		{
-			_root.AddChild(_scrollView
-				.AddChild(_cheatsGroups)
+			_root.AddChild(_cheatsGroups)
 				.AddChild(_buttonsPanel)
 				.AddChild(_searchPanel)
-				.AddChild(_componentsVisualElement));
+				.AddChild(_componentsVisualElement);
 		}
 
 		rootVisualElement.Add(_root);
+	}
+
+	private void CreateRoot()
+	{
+		_root = new ScrollView()
+			.SetStylePadding(10);
 	}
 
 	private void CreateHelpBox()
@@ -125,12 +125,6 @@ public sealed class CheatsWindow : EditorWindow
 			.SetStyleMinHeight(22)
 			.SetStyleMargin(0, 0, 5, 5)
 			.AddChild(_toolbarSearch);
-	}
-
-	private void CreateScrollView()
-	{
-		_scrollView = new ScrollView()
-			.SetStyleMargin(5);
 	}
 
 	private void CreateCheatsGroups()
