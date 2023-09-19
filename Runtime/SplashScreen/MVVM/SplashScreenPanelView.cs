@@ -22,9 +22,9 @@ public sealed class SplashScreenPanelView : PanelView<ISplashScreenViewModel>
 
 	#region View
 
-	protected override void OnInitialize()
+	protected override void OnSettingViewModel()
 	{
-		base.OnInitialize();
+		base.OnSettingViewModel();
 
 		this.Subscribe(ViewModel.CurrentSplashName, ChangeSplashAsync, CtsInstance);
 		this.Subscribe(_skipButton, ViewModel.Skip, CtsInstance);
