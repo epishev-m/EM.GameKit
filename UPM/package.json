@@ -6,5 +6,7 @@
     "name": "Maxim Epishev",
     "email": "epishev.m@mail.ru"
   },
-  "type": "library"
+  "dependencies": {
+    "com.em.profilesystem": "1.0.0"
+  }
 }
